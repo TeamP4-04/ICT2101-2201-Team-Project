@@ -8,3 +8,4 @@
 8. use tags to demarcate rel versions in master branch"
  
 10. other developers continue work off the dev branch
+ 
