@@ -1,8 +1,7 @@
-<<<<<<< Updated upstream
 from flask import Flask, render_template, url_for
 app = Flask(__name__)
 
-=======
+
 from flask import Flask, render_template, url_for, request
 # from flask_nav import Nav
 # from flask_nav.elements import Navbar, Subgroup, View, Link, Text, Separator
@@ -25,13 +24,12 @@ class ConfigForm(FlaskForm):
     RotationSpeed = IntegerField('Rotation Speed of Robotic Car')
     ObstacleDistance = IntegerField('Obstacle Distance')
     submit = SubmitField('Submit')
->>>>>>> Stashed changes
+
 
 @app.route("/")
 @app.route("/main")
 def main():
     return render_template('main.html', title='Main')
-
 
 @app.route("/logs")
 def logs():
@@ -41,8 +39,6 @@ def logs():
 def logdetails():
     return render_template('log1.html', title='Log1')
 
-<<<<<<< Updated upstream
-=======
 @app.route("/tutorials")
 def tutorials():
     return render_template('tutorials.html', title='Tutorials')
@@ -69,6 +65,5 @@ def configuration():
 #        template="form-template"
 #    )
 
->>>>>>> Stashed changes
 if __name__ == '__main__':
     app.run(debug=True)
