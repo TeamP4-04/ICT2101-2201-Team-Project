@@ -1,0 +1,27 @@
+ {% extends "layout.html" %}
+ {% block content %}
+	<div class="form-wrapper">
+      <h2 class="title">Contact</h2>
+
+      <form method="POST" action="{{ url_for('contact') }}">
+
+          <fieldset class="form-field">
+              {{ form.MaximumSpeed.label }}
+              {{ form.MaximumSpeed(size=20) }}
+          </fieldset>
+
+          <fieldset class="form-field">
+              {{ form.RotationSpeed.label }}
+              {{ form.RotationSpeed }}
+          </fieldset>
+
+          <fieldset class="form-field">
+              {{ form.ObstacleDistance.label }}
+              {{ form.ObstacleDistance }}
+          </fieldset>
+
+          {{ form.submit }}
+
+      </form>
+    </div>
+ {% endblock content %}
