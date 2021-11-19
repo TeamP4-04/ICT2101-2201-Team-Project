@@ -13,6 +13,7 @@
 #include "wheelencoder.h"
 #include "motordriver.h"
 #include "ultrasonic.h"
+#include "linesensor.h"
 
 
 // interrupts methods
