@@ -6,7 +6,8 @@ from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField
 
 app = Flask(__name__)
-#db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Robocar.db'
+db = SQLAlchemy(app)
 
 class ConfigForm(FlaskForm):
     MaxSpeed = IntegerField('Maximum Speed of Robotic Car')
