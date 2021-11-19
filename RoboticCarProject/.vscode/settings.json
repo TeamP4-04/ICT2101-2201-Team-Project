@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "ultrasonic.h": "c",
+        "mylib.h": "c",
+        "main.h": "c"
+    }
+}
