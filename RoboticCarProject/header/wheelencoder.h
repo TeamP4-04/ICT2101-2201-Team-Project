@@ -6,5 +6,4 @@ void PORT2_IRQHandler(void);
 void changeMotorSpeed();
 float calculateDistanceTravelled();
 
-
 #endif /* HEADER_WHEELENCODER_H */

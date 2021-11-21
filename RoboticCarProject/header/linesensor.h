@@ -3,5 +3,4 @@
 
 void initLineSensor(void);
 
-
 #endif /* HEADER_LINESENSOR_H */
