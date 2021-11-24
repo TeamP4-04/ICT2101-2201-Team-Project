@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+       <div class="col-lg">
+           <h2><a class="article-title">Tutorial 3 : Learning Virtual and Physical Maps</a></h2>
+           <article class="media content-section">
+               <div class="media-body">     
+                 <h3>Overview</h3>
+                 <p>Use Physical Maps (how to place obstacles on map, how to correlate virtual map & physical)</p>
+               </div>
+             </article>
+           <article class="media content-section">
+             <div class="media-body videoContainer">     
+               <iframe class="responsive-iframe" src="https://www.youtube.com/embed/LKhm_yAtAWs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+           </article>
+           <div class="row d-flex flex-row-reverse" style="text-align: right;">
+               <button id="backBtn" class="btn submit-btn p-2" onclick="goBack()">Back</button>
+           </div>
+       </div>
+     </div>
+{% endblock content %}

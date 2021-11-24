@@ -4,18 +4,22 @@
         <div class="col-lg">
 			<h2><a class="article-title">Tutorial 1: Introduction to UI</a></h2>
 			<article class="media content-section">
+				<div class="media-body">     
+				  <h3>Overview</h3>
+				  <p>Familarise with the User Interface; How to navigate through the virtual map and understand the purpose of checkpoints.</p>
+				</div>
+			  </article>
+			<article class="media content-section">
 			  <div class="media-body videoContainer">     
 				<iframe class="responsive-iframe" src="https://www.youtube.com/embed/LKhm_yAtAWs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				
 				<!-- <iframe width=100% height=100% src="https://www.youtube.com/embed/LKhm_yAtAWs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 			</div>
 			</article>
-			<article class="media content-section">
-			  <div class="media-body">     
-				<h3>Overview</h3>
-				<p>Familarise with the User Interface; How to navigate through the virtual map and understand the purpose of checkpoints.</p>
-			  </div>
-			</article>
+			<div class="row d-flex flex-row-reverse" style="text-align: right;">
+                <button id="backBtn" class="btn submit-btn p-2" onclick="goBack()">Back</button>
+                <input  class="btn nextTutorial-btn p-2" type="button" value="Next Tutorial" id="nextTutorial"  onclick="window.location='/tutorial2';"/>
+            </div>
 		</div>
       </div>
  {% endblock content %}

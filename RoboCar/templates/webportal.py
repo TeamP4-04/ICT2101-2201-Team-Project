@@ -6,7 +6,6 @@ from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField
 
 app = Flask(__name__)
-#db = SQLAlchemy(app)
 
 class ConfigForm(FlaskForm):
     MaxSpeed = IntegerField('Maximum Speed of Robotic Car')
@@ -33,6 +32,14 @@ def tutorials():
 @app.route("/tutorial1")
 def tutorialdetails():
     return render_template('tutorial1.html', title='Tutorial1')
+
+@app.route("/tutorial2")
+def tutorialdetails():
+    return render_template('tutorial2.html', title='Tutorial2')
+
+@app.route("/tutorial3")
+def tutorialdetails():
+    return render_template('tutorial3.html', title='Tutorial3')
     
 @app.route("/configuration", methods=["GET", "POST"])
 def configuration():
