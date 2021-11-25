@@ -5,9 +5,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField
 
+from sqlalchemy.engine import create_engine
+import sqlite3 as sql
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Robocar.db'
+
 db = SQLAlchemy(app)
+
 
 class ConfigForm(FlaskForm):
     MaxSpeed = IntegerField('Maximum Speed of Robotic Car')
@@ -16,6 +20,7 @@ class ConfigForm(FlaskForm):
     submit = SubmitField('Submit')
 
 @app.route("/")
+
 
 @app.route("/main")
 def main():
@@ -29,20 +34,58 @@ def logs():
 
 @app.route("/tutorials")
 def tutorials():
-    return render_template('tutorials.html', title='Tutorials')
-    
-@app.route("/tutorial1")
-def tutorialdetails():
-    return render_template('tutorial1.html', title='Tutorial1')
-    
+    conn = sql.connect("Robocar.db")
+    # conn=db
+    conn.row_factory = sql.Row
+
+    cur = conn.cursor()
+    cur.execute("select * from Tutorial order by tutorialID")
+
+    rows = cur.fetchall()
+    print(rows)
+    return render_template('tutorials.html', title='Tutorials', rows=rows)
+
+
+@app.route("/tutorial/<tutorialID>")
+def tutorialdetails(tutorialID):
+    conn = sql.connect("Robocar.db")
+    # conn=db
+    conn.row_factory = sql.Row
+
+    cur = conn.cursor()
+    cur.execute("select * from Tutorial where tutorialID = ?", tutorialID)
+    rows = cur.fetchall()
+    cur.execute("SELECT * FROM Tutorial WHERE tutorialID=(SELECT max(tutorialID) FROM Tutorial)")
+    # cur.execute("select max(tutorialID) from Tutorial")
+    last_id = cur.fetchone()
+
+    return render_template('tutorial1.html', title='Tutorial ' + tutorialID, rows=rows, last_id=last_id)
+
+# @app.route("/tutorials")
+# def tutorials():
+#     return render_template('tutorials.html', title='Tutorials')
+
+# @app.route("/tutorial1")
+# def tutorialdetails():
+#     return render_template('tutorial1.html', title='Tutorial1')
+
+# @app.route("/tutorial2")
+# def tutorialdetails():
+#     return render_template('tutorial2.html', title='Tutorial2')
+
+# @app.route("/tutorial3")
+# def tutorialdetails():
+#     return render_template('tutorial3.html', title='Tutorial3')
+
+
 @app.route("/configuration", methods=["GET", "POST"])
 def configuration():
-    form = ConfigForm() 
+    form = ConfigForm()
     return render_template('configuration.html', form=form, title='Configuration')
-    
-    
-#@app.route("/contact", methods=["GET", "POST"])
-#def contact():
+
+
+# @app.route("/contact", methods=["GET", "POST"])
+# def contact():
 #    """Standard `contact` form."""
 #    form = ContactForm()
 #    if form.validate_on_submit():
