@@ -12,7 +12,6 @@ app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Robocar.db'
 #db = SQLAlchemy(app)
 
-
 class ConfigForm(FlaskForm):
     MaxSpeed = IntegerField('Maximum Speed of Robotic Car')
     RotationSpeed = IntegerField('Rotation Speed of Robotic Car')
@@ -32,19 +31,19 @@ def logs():
     conn.row_factory = sql.Row
 
     cur=conn.cursor()
-    cur.execute("select * from logs_page order by logID DESC")
+    cur.execute("select gameID, logID from logs_page order by gameID DESC, logID DESC")
 
     rows=cur.fetchall()
     return render_template('logs.html', title='Logs', rows = rows)
 
 @app.route("/logs/<logID>")
-def logdetails(logID):
+def logdetails(logID, gameID):
     conn=sql.connect("Robocar.db")
     #conn=db
     conn.row_factory = sql.Row
 
     cur=conn.cursor()
-    cur.execute("select * from logs_page where logID = ?", logID)
+    cur.execute("select * from logs_page where logID = ? and gameID = ?", logID, gameID)
 
     rows=cur.fetchall()
     print (rows)
