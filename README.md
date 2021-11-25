@@ -10,7 +10,7 @@ any necessary dependencies to run it
 1. Create a virtual environment  
  ```python -m venv venv```  
 ```venv\Scripts\activate```  
-2. Install the dependencies
+2. Install the dependencies  
 ```python3 -m pip install -r requirements.txt```
 - In case you encounter this conflicting error 'can't find Rust Compiler':
 ![image](https://user-images.githubusercontent.com/71871190/143470692-27069d67-bf2f-4958-9b6f-634e6b858230.png)  
