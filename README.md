@@ -14,20 +14,21 @@ any necessary dependencies to run it
 ```python3 -m pip install -r requirements.txt```
 - In case you encounter this conflicting error 'can't find Rust Compiler':
 ![image](https://user-images.githubusercontent.com/71871190/143470692-27069d67-bf2f-4958-9b6f-634e6b858230.png)  
-Enter```python -m pip install --upgrade pip```  
+Run ```python -m pip install --upgrade pip```  
 
-### To run command line
+### To run in command line:
 3. In the directory where webportal.py is located, open a cmd interface.  
-4. Enter the following commands followed by flask run will start the server
+4. Enter the following commands followed by flask run will start the server.  
 ```set FLASK_APP=webportal.py```  
 ```set FLASK_DEBUG=1``` where debug = 1 is to make it so that it updates the pages.  
 ```python ./webportal.py``` 
 
-![image](https://user-images.githubusercontent.com/71871190/143473789-51f2f610-b12a-4014-9021-a1ab6f4af49b.png)
-5. Click on the ip address ```http://127.0.0.1:5000/``` to visit the web portal.
+![image](https://user-images.githubusercontent.com/71871190/143473789-51f2f610-b12a-4014-9021-a1ab6f4af49b.png)  
+5. Click on the ip address ```http://127.0.0.1:5000/``` to visit the web portal.  
 
 ## Development Workflow
-The team uses the Git Feature Workflow with Development Branch. We have a Development Branch that is in parallel to the Master Branch such that it reflects the current development changes for the next release. From there, each developer on the team creates their own Feature Branch from the Development Branch to work on their assigned features of the web portal. Once a feature is tested, the feature branch is merged with the Development Branch before finally merging with the Master Branch.
+The Git Feature Workflow with Development Branch is used by the team. We have a Development Branch that runs alongside the Master Branch and reflects the most recent development changes for the next release. Then, from the Development Branch, each developer on the team creates their own Feature Branch to work on the web portal's assigned features.  
+Once a feature has been tested, it is merged with the Development Branch before being merged with the Master Branch.  
 
 ### Project set up steps:
 1. Clone project  
