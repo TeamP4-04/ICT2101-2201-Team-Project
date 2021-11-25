@@ -7,21 +7,22 @@ This repository aims to deliver the project requirements in SIT ICT Module 2101/
 any necessary dependencies to run it
 
 ### To run the application on VSCode:
-1. Create a virtual environment```
-```python -m venv venv```
+1. Create a virtual environment
+ ```python -m venv venv```
 ```venv\Scripts\activate```
 2. Install the dependencies
 ```python3 -m pip install -r requirements.txt```
 - In case you encounter this conflicting error 'can't find Rust Compiler':
-![image](https://user-images.githubusercontent.com/71871190/143470692-27069d67-bf2f-4958-9b6f-634e6b858230.png)
-- Enter```python -m pip install --upgrade pip```
+![image](https://user-images.githubusercontent.com/71871190/143470692-27069d67-bf2f-4958-9b6f-634e6b858230.png)  
+Enter```python -m pip install --upgrade pip```  
 
 ### To run command line
-3. In the directory where webportal.py is located, open a cmd interface.
+3. In the directory where webportal.py is located, open a cmd interface.  
 4. Enter the following commands followed by flask run will start the server
-```set FLASK_APP=webportal.py```
-```set FLASK_DEBUG=1``` where debug = 1 is to make it so that it updates the pages.
+```set FLASK_APP=webportal.py```  
+```set FLASK_DEBUG=1``` where debug = 1 is to make it so that it updates the pages.  
 ```python ./webportal.py``` 
+
 ![image](https://user-images.githubusercontent.com/71871190/143473789-51f2f610-b12a-4014-9021-a1ab6f4af49b.png)
 5. Click on the ip address ```http://127.0.0.1:5000/``` to visit the web portal.
 
