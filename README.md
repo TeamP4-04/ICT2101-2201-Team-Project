@@ -6,10 +6,24 @@ This repository aims to deliver the project requirements in SIT ICT Module 2101/
 - keep it straight to the point of how to access the entry point of the web app
 any necessary dependencies to run it
 
-To run the application on VSCode, run webportal.py with dependencies installed.
-1. Run ```python3 -m pip install -r requirements.txt```
-2. Ready to launch the application.
-3. Visit the website at localhost.
+### To run the application on VSCode:
+1. Create a virtual environment```
+```python -m venv venv```
+```venv\Scripts\activate```
+2. Install the dependencies
+```python3 -m pip install -r requirements.txt```
+- In case you encounter this conflicting error 'can't find Rust Compiler':
+![image](https://user-images.githubusercontent.com/71871190/143470692-27069d67-bf2f-4958-9b6f-634e6b858230.png)
+- Enter```python -m pip install --upgrade pip```
+
+### To run command line
+3. In the directory where webportal.py is located, open a cmd interface.
+4. Enter the following commands followed by flask run will start the server
+```set FLASK_APP=webportal.py```
+```set FLASK_DEBUG=1``` where debug = 1 is to make it so that it updates the pages.
+```python ./webportal.py``` 
+![image](https://user-images.githubusercontent.com/71871190/143473789-51f2f610-b12a-4014-9021-a1ab6f4af49b.png)
+5. Click on the ip address ```http://127.0.0.1:5000/``` to visit the web portal.
 
 ## Development Workflow
 The team uses the Git Feature Workflow with Development Branch. We have a Development Branch that is in parallel to the Master Branch such that it reflects the current development changes for the next release. From there, each developer on the team creates their own Feature Branch from the Development Branch to work on their assigned features of the web portal. Once a feature is tested, the feature branch is merged with the Development Branch before finally merging with the Master Branch.
@@ -26,13 +40,6 @@ The team uses the Git Feature Workflow with Development Branch. We have a Develo
 
 4. Push your feature branch to GitHub  
 ```git push -u origin feature/<featurename>```
-
-**In VS Code:**
-- Locate to the RoboCar project folder and enter the following commands:
-1. Run ```python3 -m pip install -r requirements.txt```
-2. ```set FLASK_APP=webportal.py```
-3. ```set FLASK_DEBUG=1```
-4. ```python ./webportal.py```
 
 ### Basic workflow:
 1. Checkout your feature branch  
