@@ -6,27 +6,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField
 
-import sqlalchemy as db
 import sqlite3 as sql
 
-#conn = sqlite3.connect('Robocar.db')
-print ("Opened database successfully");
-
-#conn.execute('CREATE TABLE logs_page (distance_travelled TEXT, rotation TEXT, Obs_distance TEXT, time_spent TEXT)')
-print ("Table created successfully");
-#conn.close()
-
-#engine = create_engine('sqlite://Robocar.db')
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URL'] = 'sqlite://Robocar.db'
-db = SQLAlchemy(app)
-
-# connection = engine.connect()
-# metadata = db.metadata()
-# logs = db.Table('logs', metadata, autoload=True, autoload_with = engine)
-
-# print(logs.columns.key())
-
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Robocar.db'
+#db = SQLAlchemy(app)
 
 
 class ConfigForm(FlaskForm):
@@ -44,6 +28,7 @@ def main():
 @app.route("/logs")
 def logs():
     conn=sql.connect("Robocar.db")
+    #conn=db
     conn.row_factory = sql.Row
 
     cur=conn.cursor()
@@ -55,6 +40,7 @@ def logs():
 @app.route("/logs/<logID>")
 def logdetails(logID):
     conn=sql.connect("Robocar.db")
+    #conn=db
     conn.row_factory = sql.Row
 
     cur=conn.cursor()
