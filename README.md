@@ -1,21 +1,27 @@
 # ICT2101-2201-Team-Project
-This Repo aim to deliver the project requirement in SIT ICT Module 2101/2104. 
+This repository aims to deliver the project requirements in SIT ICT Module 2101/2104. 
 
 ## How to run
 
 - keep it straight to the point of how to access the entry point of the web app
 any necessary dependencies to run it
 
+To run the application on VSCode, run webportal.py with dependencies installed.
+1. Run ```python3 -m pip install -r requirements.txt```
+2. Ready to launch the application.
+3. Visit the website at localhost.
+
 ## Development Workflow
+The team uses the Git Feature Workflow with Development Branch. We have a Development Branch that is in parallel to the Master Branch such that it reflects the current development changes for the next release. From there, each developer on the team creates their own Feature Branch from the Development Branch to work on their assigned features of the web portal. Once a feature is tested, the feature branch is merged with the Development Branch before finally merging with the Master Branch.
 
 ### Project set up steps:
 1. Clone project  
 ```git clone https://github.com/TeamP4-04/ICT2101-2201-Team-Project.git```
 
-1. Checkout dev branch  
+2. Checkout dev branch  
 ```git checkout dev```
 
-1. Create and checkout feature branch  
+3. Create and checkout feature branch  
 ```git checkout -b feature/<featurename>```
 
 4. Push your feature branch to GitHub  
@@ -23,10 +29,10 @@ any necessary dependencies to run it
 
 **In VS Code:**
 - Locate to the RoboCar project folder and enter the following commands:
-    1. Run “python3 -m pip install -r requirements.txt”
-    2. set FLASK_APP=webportal.py
-    3. set FLASK_DEBUG=1
-    4. python ./webportal.py
+    1. Run ```python3 -m pip install -r requirements.txt```
+    2. ```set FLASK_APP=webportal.py```
+    3. ```set FLASK_DEBUG=1```
+    4. ```python ./webportal.py```
 
 ### Basic workflow:
 1. Checkout your feature branch  
