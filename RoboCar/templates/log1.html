@@ -1,20 +1,38 @@
  {% extends "layout.html" %}
  {% block content %}
- <div class="row">
-        <div class="col-lg">
-          <article class="media content-section">
-            <div class="media-body">     
-              <h2><a class="article-title" href="#">Game 1 Log 1</a></h2>
-              <p class="article-content">all the past and current inputs displayed here</p>
-              <p class="article-content">Distance Travelled: </p>
-              <p class="article-content">Rotation: </p>
-              <p class="article-content">obstacles Distance: </p>
-              <p class="article-content">Time Spent: </p>
-            </div>
-            <p>
-              <button type="button" onclick="">Resume Game</button>		
-              </p>
-        </article>
-		</div>
-      </div>
+ <body>
+  {% for row in rows %}
+  <h1>
+    Game {{row["gameID"]}} Log {{row["logID"]}}
+  </h1>
+  <br>
+  <table class = "table table-borderless">
+    <tbody>
+      <tr class = "d-flex">
+          <th class = "col-4"> Distance Travelled: </th>
+          <td class = "col-2"> {{row["distance_travelled"]}} </td>
+          <td class = "col-6"><strong>m</strong></td>
+        </tr>
+        <tr class = "d-flex">
+          <th class = "col-4"> Rotation: </th>
+          <td class = "col-2"> {{row["rotation"]}} </td>
+          <td class = "col-6"><strong>degree</strong></td>
+        </tr>
+        <tr class = "d-flex">
+          <th class = "col-4"> Obstacles Distance: </th>
+          <td class = "col-2"> {{row["Obs_distance"]}} </td>
+          <td class = "col-6"><strong>cm</strong></td>
+        </tr>
+        <tr class = "d-flex">
+          <th class = "col-4"> Time Spent: </th>
+          <td class = "col-2"> {{row["time_spent"]}} </td>
+          <td class = "col-6"><strong>sec</strong></td>
+        </tr>
+      </tbody>
+  </table>
+  {% endfor %}
+
+  <a href = "/logs" class="back">Back to logs</a>
+  <a href = "" class = "resume">Resume Game</a>
+</body>
  {% endblock content %}

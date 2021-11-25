@@ -1,25 +1,20 @@
  {% extends "layout.html" %}
  {% block content %}
- <div class="row">
-        <div class="col-lg">
-          <article class="media content-section">
-          <div class="media-body">     
-            <h2><a class="article-title" href="#">Game 1 Log 3</a></h2>
-            <!-- <p class="article-content">all the past and current inputs displayed here</p> -->
-          </div>
-			</article>
-      <article class="media content-section">
-        <div class="media-body">     
-          <h2><a class="article-title" href="#">Game 1 Log 2</a></h2>
-          <!-- <p class="article-content">all the past and current inputs displayed here</p> -->
-        </div>
-    </article>
-    <article class="media content-section">
-      <div class="media-body">     
-        <h2><a class="article-title" href="/logs/log1">Game 1 Log 1</a></h2>
-        <!-- <p class="article-content">all the past and current inputs displayed here</p> -->
-      </div>
-  </article>
-		</div>
-      </div>
- {% endblock content %}
+ <div class = "table-responsive">
+  <table class = "table table-borderless">
+    <tbody>
+      {% for row in rows %}
+        <tr class = "d-flex">
+            <th class = "col-8">
+              <h4>Game {{row["gameID"]}} Log {{row["logID"]}}</h4>
+            </th>
+            <td class = "col-4"> 
+              <a href = "/logs/{{row['logID']}}" class="details">View details</a> 
+            </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}
