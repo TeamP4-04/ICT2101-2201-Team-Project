@@ -8,7 +8,73 @@ any necessary dependencies to run it
 
 ## Development Workflow
 
-- provide a brief yet sufficiently comprehensive description of your team’s workflow using git and GitHub features
+### Project set up steps:
+1. Clone project  
+```git clone https://github.com/TeamP4-04/ICT2101-2201-Team-Project.git```
+
+1. Checkout dev branch  
+```git checkout dev```
+
+1. Create and checkout feature branch  
+```git checkout -b feature/<featurename>```
+
+4. Push your feature branch to GitHub  
+```git push -u origin feature/<featurename>```
+
+**In VS Code:**
+- Locate to the RoboCar project folder and enter the following commands:
+    1. Run “python3 -m pip install -r requirements.txt”
+    2. set FLASK_APP=webportal.py
+    3. set FLASK_DEBUG=1
+    4. python ./webportal.py
+
+### Basic workflow:
+1. Checkout your feature branch  
+```git checkout feature/<featurename>```
+
+1. Code and test your feature  
+
+2. Add your changes to the feature branch (best practice to add the files that you modified only)  
+```git add <file name>```
+
+4. Commit your changes  
+```git commit -m “<commit message>”```  
+or  
+```git commit``` Press enter and type the summary and description for the commit. Then press esc and type :wq  
+
+5. Push your changes to Github  
+```git push```
+
+### Get updates from master branch to your own branch:
+1. Check out master branch  
+```git checkout master```
+
+2. Pull updates from remote master branch to local master branch    
+```git pull```
+
+3. Change back to feature branch  
+```git checkout <featurename>```
+
+4. Merge master branch code to feature branch  
+```git merge master```
+
+### Once the feature is completed, merge it to master branch:  
+You can create a pull request in Github to merge your branch to master branch  
+
+#### OR
+1. Checkout master branch  
+```git checkout master```  
+
+2. Merge your feature branch to master branch  
+```git merge <featurename>```  
+
+3. Delete local feature branch   
+```git branch -d <featurename>```  
+
+4. Delete remote feature branch  
+```git push origin --delete <featurename>```  
+
+**Note: Best practice to commit your changes regularly**
 
 ## User Acceptance Testing
 
