@@ -7,9 +7,9 @@ This repository aims to deliver the project requirements in SIT ICT Module 2101/
 any necessary dependencies to run it
 
 ### To run the application on VSCode:
-1. Create a virtual environment
- ```python -m venv venv```
-```venv\Scripts\activate```
+1. Create a virtual environment  
+ ```python -m venv venv```  
+```venv\Scripts\activate```  
 2. Install the dependencies
 ```python3 -m pip install -r requirements.txt```
 - In case you encounter this conflicting error 'can't find Rust Compiler':
