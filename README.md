@@ -29,10 +29,10 @@ The team uses the Git Feature Workflow with Development Branch. We have a Develo
 
 **In VS Code:**
 - Locate to the RoboCar project folder and enter the following commands:
-    1. Run ```python3 -m pip install -r requirements.txt```
-    2. ```set FLASK_APP=webportal.py```
-    3. ```set FLASK_DEBUG=1```
-    4. ```python ./webportal.py```
+1. Run ```python3 -m pip install -r requirements.txt```
+2. ```set FLASK_APP=webportal.py```
+3. ```set FLASK_DEBUG=1```
+4. ```python ./webportal.py```
 
 ### Basic workflow:
 1. Checkout your feature branch  
@@ -59,7 +59,7 @@ or
 ```git pull```
 
 3. Change back to feature branch  
-```git checkout <featurename>```
+```git checkout feature/<featurename>```
 
 4. Merge master branch code to feature branch  
 ```git merge master```
@@ -72,13 +72,13 @@ You can create a pull request in Github to merge your branch to master branch
 ```git checkout master```  
 
 2. Merge your feature branch to master branch  
-```git merge <featurename>```  
+```git merge feature/<featurename>```  
 
 3. Delete local feature branch   
-```git branch -d <featurename>```  
+```git branch -d feature/<featurename>```  
 
 4. Delete remote feature branch  
-```git push origin --delete <featurename>```  
+```git push origin --delete feature/<featurename>```  
 
 **Note: Best practice to commit your changes regularly**
 
