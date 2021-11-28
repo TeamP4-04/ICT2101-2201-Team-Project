@@ -36,19 +36,22 @@ def logs():
     rows=cur.fetchall()
     return render_template('logs.html', title='Logs', rows = rows)
 
-@app.route("/logs/<logID>")
-def logdetails(logID, gameID):
+@app.route("/logs/game<gameID>/log<logID>")
+def logdetails(gameID, logID):
     conn=sql.connect("Robocar.db")
+    print(gameID)
+    print(logID)
     #conn=db
     conn.row_factory = sql.Row
 
     cur=conn.cursor()
-    cur.execute("select * from logs_page where logID = ? and gameID = ?", logID, gameID)
+    cur.execute("select * from logs_page where gameID = ? and logID = ?", (gameID, logID))
 
     rows=cur.fetchall()
-    print (rows)
-    return render_template('log1.html', title='Log ' + logID, rows = rows)
-    
+    print(rows)
+
+    return render_template('log1.html', title='Game ' + gameID + ' Log ' + logID, rows = rows)
+
 
 @app.route("/tutorials")
 def tutorials():

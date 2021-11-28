@@ -9,7 +9,7 @@
               <h4>Game {{row["gameID"]}} Log {{row["logID"]}}</h4>
             </th>
             <td class = "col-4"> 
-              <a href = "/logs/{{row['logID']}}" class="details">View details</a> 
+              <a href = "/logs/game{{row['gameID']}}/log{{row['logID']}}" class="details">View details</a> 
             </td>
         </tr>
       {% endfor %}
