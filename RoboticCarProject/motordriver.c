@@ -5,7 +5,7 @@ Timer_A_PWMConfig pwmConfigLeft =
         TIMER_A_CLOCKSOURCE_SMCLK,
         TIMER_A_CLOCKSOURCE_DIVIDER_24,
         10000,
-        TIMER_A_CAPTURECOMPARE_REGISTER_1,
+        TIMER_A_CAPTURECOMPARE_REGISTER_2,
         TIMER_A_OUTPUTMODE_RESET_SET,
         1000
 };
@@ -47,11 +47,11 @@ void initMotorDriver(){
 
     /*Setting PWM port */
     GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P2, GPIO_PIN4, GPIO_PRIMARY_MODULE_FUNCTION); //Right Motor[ENA]
-    GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P5, GPIO_PIN6, GPIO_PRIMARY_MODULE_FUNCTION); //Left Motor[ENB]
+    GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P2, GPIO_PIN5, GPIO_PRIMARY_MODULE_FUNCTION); //Left Motor[ENB]
 
     /* Configuring Timer_A to have a period of approximately 80ms and an initial duty cycle of 10% of that (1000 ticks)  */
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
-    Timer_A_generatePWM(TIMER_A2_BASE, &pwmConfigLeft); //Left Motor
+    Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
 
 
     printf("Init-ed the motor\n");
@@ -72,7 +72,7 @@ void goForward(){
     pwmConfigLeft.dutyCycle = 1300 * 2.2;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
-    Timer_A_generatePWM(TIMER_A2_BASE, &pwmConfigLeft); //Left Motor
+    Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
 
 
     printf("Moving Forward\n");
@@ -93,7 +93,7 @@ void turnLeft(){
     pwmConfigLeft.dutyCycle = 1100 * 2.7;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
-    Timer_A_generatePWM(TIMER_A2_BASE, &pwmConfigLeft); //Left Motor
+    Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
 
     printf("Turning Left\n");
 
@@ -113,7 +113,7 @@ void turnRight(){
     pwmConfigLeft.dutyCycle = 1300;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
-    Timer_A_generatePWM(TIMER_A2_BASE, &pwmConfigLeft); //Left Motor
+    Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
 
     printf("Turning Right\n");
 
@@ -134,7 +134,7 @@ void isStop(){
     pwmConfigLeft.dutyCycle = 0;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
-    Timer_A_generatePWM(TIMER_A2_BASE, &pwmConfigLeft); //Left Motor
+    Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
 
     printf("Is stopped\n");
 };
