@@ -1,13 +1,14 @@
-#ifndef HEADER_MYLIB_H
-#define HEADER_MYLIB_H
+#ifndef LIB_H
+#define LIB_H
 
-/* DriverLib Includes */
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
 /* Standard Includes */
 #include <stdint.h>
 #include <stdbool.h>
+#include "string.h"
 #include <stdio.h>
-#include <string.h>
+#include <stdbool.h>
 
-#endif /* HEADER_MYLIB_H */
+#endif 
+

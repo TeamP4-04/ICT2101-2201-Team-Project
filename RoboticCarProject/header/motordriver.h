@@ -1,13 +1,12 @@
-#ifndef HEADER_MOTORDRIVER
-#define HEADER_MOTORDRIVER
+#include "lib.h"
 
-void initMotorDriver(void);
-void turnLeft(void);
-void turnRight(void);
-void goForward(void);
-void isStop(void);
+#ifndef MOTORDRIVER_H
+#define MOTORDRIVER_H
 
-Timer_A_PWMConfig pwmConfigLeft();
-Timer_A_PWMConfig pwmConfigRight();
+void initMotorDriver();
+void goForward();
+void turnLeft();
+void turnRight();
+void isStop();
 
 #endif

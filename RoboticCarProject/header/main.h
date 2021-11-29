@@ -1,18 +1,14 @@
-#ifndef HEADER_MAIN_H
-#define HEADER_MAIN_H
+#include "lib.h"
 
-/* DriverLib Includes */
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+#ifndef MAIN_HEADER_H
+#define MAIN_HEADER_H
 
-/* Standard Includes */
-#include "myLib.h"
-#include "wheelencoder.h"
-#include "motordriver.h"
-#include "ultrasonic.h"
-#include "linesensor.h"
+#define MIN_DISTANCE    15.0f
 
-// interrupts methods
-void TA0_0_IRQHandler(void);
-void PORT1_IRQHandler(void);
+volatile uint32_t SR04IntTimes;
+bool stoppedStatus ;
+int stateCounter ;
 
-#endif /* HEADER_MAIN_H */
+
+#endif 
+
