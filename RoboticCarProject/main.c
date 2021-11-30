@@ -9,6 +9,7 @@
 #include "header/motordriver.h"
 #include "header/ultrasonic.h"
 #include "header/wheelencode.h"
+#include "header/linesensor.h"
 
 bool stoppedStatus = false;
 volatile uint32_t SR04IntTimes = 0;
@@ -23,7 +24,8 @@ int main(void)
                                                                                                                                                                                                                                                                                                                                                                                   {
     Initalise_HCSR04();
     initMotorDriver();
-    InitWheelEncoder();
+    initWheelEncoder();
+    initLineSensor();
 
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
     GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1);

@@ -1,7 +1,7 @@
 #include "header/wheelencode.h"
 
 // Initialize Wheel Encoder
-void InitWheelEncoder(void)
+void initWheelEncoder(void)
 {
     /* Timer_A UpMode Configuration Parameter */
     const Timer_A_UpModeConfig encoderConfig =

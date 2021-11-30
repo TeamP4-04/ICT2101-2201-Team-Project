@@ -8,7 +8,7 @@
 #define MINUTE          60
 #define FULL_ROTATE     20
 
-void InitWheelEncoder(void);
+void initWheelEncoder(void);
 
 extern volatile uint32_t time_counter;
 extern volatile uint32_t timer_status;
