@@ -64,18 +64,17 @@ void goForward(){
     //Set right motor to forward at 50%.
     GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN1);
     GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN2);
-    pwmConfigRight.dutyCycle = 1100 * 2.2;
+    //pwmConfigRight.dutyCycle = 1100 * 2.2;
+    pwmConfigRight.dutyCycle = 2400 * 2.2;
 
     //Set left motor to move forward at 50%.
     GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN3);
     GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN4);
-    pwmConfigLeft.dutyCycle = 1300 * 2.2;
+    //pwmConfigLeft.dutyCycle = 1300 * 2.2;
+    pwmConfigLeft.dutyCycle = 2600 * 2.2;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
-
-
-    printf("Moving Forward\n");
 
 };
 
@@ -95,8 +94,6 @@ void turnLeft(){
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
 
-    printf("Turning Left\n");
-
 };
 
 void turnRight(){
@@ -114,9 +111,6 @@ void turnRight(){
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
-
-    printf("Turning Right\n");
-
 
 };
 
@@ -136,5 +130,4 @@ void isStop(){
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
 
-    printf("Is stopped\n");
 };

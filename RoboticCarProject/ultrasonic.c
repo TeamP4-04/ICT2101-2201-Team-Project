@@ -2,8 +2,6 @@
 #include "header/util.h"
 #include "header/motordriver.h"
 
-
-
 void Initalise_HCSR04(void)
 {
     /* Timer_A UpMode Configuration Parameter */
@@ -17,8 +15,6 @@ void Initalise_HCSR04(void)
             TIMER_A_DO_CLEAR                        // Clear value
     };
 
-    int a = CS_getSMCLK();
-
     /* Configuring P3.6 as Output */
     GPIO_setAsOutputPin(GPIO_PORT_P3, GPIO_PIN6);    // Trigger Pin (P3.6)
     GPIO_setOutputLowOnPin(GPIO_PORT_P3, GPIO_PIN6);
@@ -26,14 +22,11 @@ void Initalise_HCSR04(void)
     GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P3, GPIO_PIN7); // Echo Pin (P3.7)
 
 
-    /* Configuring Timer_A0 for Up Mode */
+    /* Configuring Timer_A1 for Up Mode */
     Timer_A_configureUpMode(TIMER_A1_BASE, &sonicConfig);
 
     /* Enabling interrupts and starting the timer */
     Interrupt_enableInterrupt(INT_TA1_0);
-    //Timer_A_startCounter(TIMER_A0_BASE, TIMER_A_UP_MODE);
-
-    //Timer_A_stopTimer(TIMER_A0_BASE);
     Timer_A_clearTimer(TIMER_A1_BASE);
 
     printf("Ultra-sonic initialised\n");
@@ -97,7 +90,7 @@ float getHCSR04Distance(void)
 // Display Object Distance Message
 void validateObjectMessage(float objectDistance)
 {
-    char message[100];
+    //char message[100];
 
         objectDistance = getHCSR04Distance();
 
@@ -113,13 +106,13 @@ void validateObjectMessage(float objectDistance)
                 isStop();
                 stoppedStatus = true;
             }
-            strcpy(message, "Object detected!");
+            //strcpy(message, "Object detected!");
         }
         else
         {
             stoppedStatus = false;
             goForward();
-            strcpy(message, "Clear of Obstacles.");
+            //strcpy(message, "Clear of Obstacles.");
         }
 
         if (stoppedStatus == true)
@@ -129,7 +122,7 @@ void validateObjectMessage(float objectDistance)
             stoppedStatus = false;
         }
 
-        printf("Message: %s \n", message);
+        //printf("Message: %s \n", message);
 }
 
 // Print the Object distance
@@ -147,7 +140,7 @@ void TA1_0_IRQHandler(void)
 {
     /* Increment global variable (count number of interrupt occurred) */
     SR04IntTimes++;
-    //printf("TA1 interrupt");
+
     /* Clear interrupt flag */
     Timer_A_clearCaptureCompareInterrupt(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_0);
 }

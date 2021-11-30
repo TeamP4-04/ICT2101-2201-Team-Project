@@ -8,15 +8,22 @@
 #include "header/util.h"
 #include "header/motordriver.h"
 #include "header/ultrasonic.h"
+#include "header/wheelencode.h"
 
 bool stoppedStatus = false;
 volatile uint32_t SR04IntTimes = 0;
 int stateCounter = 0;
 
+volatile uint32_t time_counter = 0;
+volatile uint32_t timer_status = 0;
+volatile uint32_t left_notch_counter = 0;
+volatile uint32_t right_notch_counter = 0;
+
 int main(void)
                                                                                                                                                                                                                                                                                                                                                                                   {
     Initalise_HCSR04();
     initMotorDriver();
+    InitWheelEncoder();
 
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
     GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1);
