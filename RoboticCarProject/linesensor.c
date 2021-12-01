@@ -8,9 +8,9 @@ void initLineSensor(){
     GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN3); //RIGHT LINESENSOR
 
     //CLEAR AND ENABLE INTERRUPT FOR BOTH SENSOR
+    GPIO_clearInterruptFlag(GPIO_PORT_P2, GPIO_PIN7);
     GPIO_clearInterruptFlag(GPIO_PORT_P2, GPIO_PIN3);
-    GPIO_clearInterruptFlag(GPIO_PORT_P2, GPIO_PIN3);
-    GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN3);
+    GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN7);
     GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN3);
 
 
