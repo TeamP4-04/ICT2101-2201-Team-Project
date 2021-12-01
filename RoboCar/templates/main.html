@@ -79,7 +79,7 @@
 		 
       </div>
 	  <p>
-		<button type="button" onclick="run()">Run</button>		
+		<button type="button" onclick="run()">Run</button>	
 	  </p>
 			<script>
 				var workspace = Blockly.inject('blocklyDiv',
@@ -90,13 +90,7 @@
 					Blockly.Python.INFINITE_LOOP_TRAP = 'if (--window.LoopTrap == 0) throw "Infinite loop.";\n'; 
 					var code = Blockly.Python.workspaceToCode(workspace);
 					Blockly.Python.INFINITE_LOOP_TRAP = null;
-					try {
-					<!-- eval runs as actual code so dont do it here -->
-						<!--eval(code);
-						alert(code);
-					} catch (e) {
-						alert(e);
-					}
+					$.post("/", code);
 				}
 				
 			</script>
