@@ -2,10 +2,10 @@ class GridSystem {
     constructor(matrix, playerX, playerY) {
         // referencing the matrix everytime
         this.matrix = matrix; 
-        this.uiContext = this.#getContext(420, 580, "#333333");
+        // this.uiContext = this.#getContext(420, 580, "#333333");
         this.outlineContext = this.#getContext(0,0, "#757575");
         this.topContext = this.#getContext(0,0, "#F5F5F5", true);
-        this.cellSize = 40;
+        this.cellSize = 35;
         this.padding = 4;
 
         // Create player (Car) object & set the matrix position
@@ -117,9 +117,9 @@ class GridSystem {
         }
 
         // const center = this.#getCenter(w, h);
-        this.canvas.style.marginLeft = center.x;
-        this.canvas.style.marginTop = center.y;
-        document.body.appendChild(this.canvas);
+        this.canvas.style.marginLeft = "60px";
+        this.canvas.style.marginTop = "20px";
+        document.getElementById("virtualMap").append(this.canvas);
 
         return this.context;
     }
@@ -139,11 +139,11 @@ class GridSystem {
 		this.outlineContext.canvas.height = h;
 
 		// const center = this.#getCenter(w, h);
-		this.outlineContext.canvas.style.marginLeft = center.x
-		this.outlineContext.canvas.style.marginTop = center.y;
+		// this.outlineContext.canvas.style.marginLeft = center.x
+		// this.outlineContext.canvas.style.marginTop = center.y;
 
-		this.topContext.canvas.style.marginLeft = center.x
-		this.topContext.canvas.style.marginTop = center.y;
+		// this.topContext.canvas.style.marginLeft = center.x
+		// this.topContext.canvas.style.marginTop = center.y;
 
 		for (let row = 0; row < this.matrix.length; row ++) {
 			for (let col = 0; col < this.matrix[row].length; col ++) {
@@ -166,10 +166,10 @@ class GridSystem {
 			}
 		}
 
-        // Set title of the virtual map
-		this.uiContext.font = "20px Courier";
-		this.uiContext.fillStyle = "white";
-		this.uiContext.fillText("Virtual Map", 20, 30);
+        // // Set title of the virtual map
+		// this.uiContext.font = "20px Courier";
+		// this.uiContext.fillStyle = "white";
+		// this.uiContext.fillText("Virtual Map", 20, 30);
 	}
 }
 

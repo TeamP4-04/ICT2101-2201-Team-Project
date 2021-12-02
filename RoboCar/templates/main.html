@@ -18,8 +18,10 @@
 					<article class="media content-section">
 						<div class="media-body">     
 							<h2><a class="article-title">Virtual Map</a></h2>
-							<div class="content-section">
-								<script type="text/javascript" src="{{ url_for('static', filename='/virtualMap/map.js') }}"></script>
+							<div class="content-section" style="background-color: #333333;">
+								<div id="virtualMap">
+									<script type="text/javascript" src="{{ url_for('static', filename='/virtualMap/map.js') }}"></script>
+								</div>
 							</div>
 						</div>
 					</article>
