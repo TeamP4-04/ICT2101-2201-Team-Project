@@ -87,6 +87,7 @@ void EUSCIA0_IRQHandler(void)
         /*IF THE ENGINE IS ON AND RECEIVE A SIGNAL TO TURN OFF, CHANGE VAR TO ENGINE OFF*/
         if(carEngine == ENGINE_ON && MAP_UART_receiveData(EUSCI_A0_BASE) == ENGINE_OFF){
             carEngine = ENGINE_OFF;
+            printf("Executed\n");
         }
 
         /*IF THE ENGINE IS ON AND RECEIVE A SIGNAL TO CHANGE TRANSMISSION TO AUTO, ENGAGE THE ULTRASONIC AND TRACKER*/
@@ -103,7 +104,7 @@ void EUSCIA0_IRQHandler(void)
         }
 
 
-        if(carEngine == ENGINE_ON && carTransM = TRNASMANUAL){manualControl();}
+        if(carEngine == ENGINE_ON && carTransM == TRNASMANUAL){manualControl();}
 
 
         MAP_UART_transmitData(EUSCI_A0_BASE, '/');
