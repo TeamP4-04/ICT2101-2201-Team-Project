@@ -18,6 +18,8 @@ void initLineSensor(){
     Interrupt_enableSleepOnIsrExit();
     Interrupt_enableMaster();
 
+    printf("Line sensor initialised\n");
+
 }
 
 void PORT2_IRQHandler(void)

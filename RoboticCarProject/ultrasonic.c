@@ -111,7 +111,7 @@ void validateObjectMessage(float objectDistance)
         else
         {
             carState = STATE_CLEAR;
-            //goForward();
+            goForward();
             //strcpy(message, "Clear of Obstacles.");
         }
 

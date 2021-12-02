@@ -143,7 +143,7 @@ void isReverse(){
     //brake left motor and set 0%
     GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN3);
     GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN4);
-    pwmConfigLeft.dutyCycle = 3600 * 2.2;
+    pwmConfigLeft.dutyCycle = 3400 * 2.2;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor

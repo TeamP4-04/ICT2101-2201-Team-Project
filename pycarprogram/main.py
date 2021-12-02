@@ -4,8 +4,8 @@ import time
 import tkinter as tk
 
 window=tk.Tk()
-window.geometry('400x300')
-window.configure(background="#5f734c")
+window.geometry('450x300')
+window.configure(background="white")
 window.title("MSP432 - CAR CTRL")
 opened = True
 msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
@@ -14,6 +14,7 @@ mvt_label = tk.Label(window)
 transm_label = tk.Label(window)
 eng_status = tk.Label(window)
 power_level_lbl = tk.Label(window)
+rpm_lbl = tk.Label(window)
 power_level = 5
 
 def key_pressed(event):
@@ -107,6 +108,7 @@ def startEngine():
     engstop_button['state'] = NORMAL
     auto_button['state'] = NORMAL
     manual_button['state'] = DISABLED
+    pre_command_btn['state'] = NORMAL
     increase_power_button['state'] = DISABLED
     decrease_power_button['state'] = NORMAL
 
@@ -122,6 +124,7 @@ def stopEngine():
     engstop_button['state'] = DISABLED
     auto_button['state'] = DISABLED
     manual_button['state'] = DISABLED
+    pre_command_btn['state'] = DISABLED
     increase_power_button['state'] = DISABLED
     decrease_power_button['state'] = DISABLED
 
@@ -136,6 +139,8 @@ def increase_power():
         power_level_lbl.destroy()
         power_level_lbl=tk.Label(window,text=f"POWER LEVEL: {power_level}")
         power_level_lbl.grid(row=2, column=2)
+        increase_power_button['state'] = NORMAL
+        decrease_power_button['state'] = NORMAL
 
         msp432.write(b'+')
     if power_level == 5:
@@ -152,51 +157,84 @@ def decrease_power():
         power_level_lbl.destroy()
         power_level_lbl=tk.Label(window,text=f"POWER LEVEL: {power_level}")
         power_level_lbl.grid(row=2, column=2)
+        increase_power_button['state'] = NORMAL
+        decrease_power_button['state'] = NORMAL
 
     if power_level == 1:
         increase_power_button['state'] = NORMAL
         decrease_power_button['state'] = DISABLED
+
+def preCommand():
+    #FORWARD, LEFT, RIGHT, REVERSE, FORWARD, STOP
+    msp432.write(b'w')
+    time.sleep(1)
+    msp432.write(b's')
+    time.sleep(1)
+    msp432.write(b'a')
+    time.sleep(1.8)
+    msp432.write(b's')
+    time.sleep(1)
+    msp432.write(b'd')
+    time.sleep(1.8)
+    msp432.write(b's')
+    time.sleep(1)
+    msp432.write(b'r')
+    time.sleep(1)
+    msp432.write(b's')
+    time.sleep(1)
+    msp432.write(b'w')
+    time.sleep(1)
+    msp432.write(b's')
+    time.sleep(1)
 
 def quit():
     print("\n** END OF PROGRAM **")
     msp432.close()
     window.destroy()
     
+
 mvt_label=tk.Label(window,text="CONTROLS: WASD", padx=5,pady=5)
 eng_status=tk.Label(window,text="Engine Stopped")
 mvt_label.grid(row=2, column=1)
 eng_status.grid(row=1, column=1)
 
 ### COLUMN 3 ###
-auto_button = tk.Button(window, text="AUTO", command=autoTransmission, font=("Arial", 13))
+auto_button = tk.Button(window, text="AUTO", fg="teal", command=autoTransmission, font=("Arial", 13))
 auto_button.grid(row=1, column=3, padx=5, pady=10)
 
 manual_button = tk.Button(window, text="MANUAL", command=manualTransmission, font=("Arial", 13))
 manual_button.grid(row=2, column=3, padx=5, pady=10)
 
-increase_power_button = tk.Button(window, text="+ POWER", command=increase_power, font=("Arial", 13))
+increase_power_button = tk.Button(window, text="+ POWER",fg="teal", command=increase_power, font=("Arial", 13))
 increase_power_button.grid(row=3, column=3, padx=5, pady=10)
 
-decrease_power_button = tk.Button(window, text="- POWER", command=decrease_power, font=("Arial", 13))
+decrease_power_button = tk.Button(window, text="- POWER",fg="teal", command=decrease_power, font=("Arial", 13))
 decrease_power_button.grid(row=4, column=3, padx=5, pady=10)
 
-quit_button = tk.Button(window, text="QUIT", command=quit, font=("Arial", 13))
+quit_button = tk.Button(window, text="QUIT",fg="teal", command=quit, font=("Arial", 13))
 quit_button.grid(row=5, column=3, padx=5, pady=10)
 
 #### ROW 3 ###
-engstart_button = tk.Button(window, text="ENGINE START", command=startEngine, font=("Arial", 13))
+engstart_button = tk.Button(window, text="ENGINE START", fg="green", command=startEngine, font=("Arial", 13))
 engstart_button.grid(row=5, column=1, padx=5, pady=10)
 
-engstop_button = tk.Button(window, text="ENGINE STOP", command=stopEngine, font=("Arial", 13))
+engstop_button = tk.Button(window, text="ENGINE STOP", fg="red",command=stopEngine, font=("Arial", 13))
 engstop_button.grid(row=5, column=2, padx=5, pady=10)
+
+pre_command_btn = tk.Button(window, text="EXECUTE PREMADE\nCOMMAND", fg="blue", command=preCommand, font=("Arial", 13))
+pre_command_btn.grid(row=6, column=1, padx=5, pady=10)
 
 engstart_button['state'] = NORMAL
 engstop_button['state'] = DISABLED
 auto_button['state'] = DISABLED
 manual_button['state'] = DISABLED
+pre_command_btn['state'] = DISABLED
 increase_power_button['state'] = DISABLED
 decrease_power_button['state'] = DISABLED
+
 
 window.bind("<Key>",key_pressed)
 window.bind("<KeyRelease>",key_release)
 window.mainloop()
+
+

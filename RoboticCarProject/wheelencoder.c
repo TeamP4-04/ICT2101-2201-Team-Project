@@ -40,7 +40,7 @@ void initWheelEncoder(void)
     Interrupt_enableInterrupt(INT_TA2_0);
     Timer_A_clearTimer(TIMER_A2_BASE);
 
-    printf("Wheel Encoder Initialised");
+    printf("Wheel Encoder Initialised\n");
 
 }
 

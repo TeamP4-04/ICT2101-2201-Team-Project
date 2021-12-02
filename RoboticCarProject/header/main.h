@@ -6,7 +6,7 @@
 #define MIN_DISTANCE    15.0f
 
 #define TRANSAUTO       'u'
-#define TRNASMANUAL     'm'
+#define TRANSMANUAL     'm'
 #define FORWARD         'w'
 #define LEFT            'a'
 #define RIGHT           'd'
