@@ -10,11 +10,12 @@
 #include "header/ultrasonic.h"
 #include "header/wheelencode.h"
 #include "header/linesensor.h"
+#include "header/UARTusb.h"
 
-bool stoppedStatus = false;
 volatile uint32_t SR04IntTimes = 0;
-int carEngine = ENGINE_STOP;
-int carState = MOV_STOP;
+volatile char carEngine = ENGINE_OFF;
+volatile char carTransM = TRNASMANUAL;
+volatile bool carState = STATE_CLEAR;
 
 volatile uint32_t time_counter = 0;
 volatile uint32_t timer_status = 0;
@@ -23,10 +24,14 @@ volatile uint32_t right_notch_counter = 0;
 
 int main(void)
 {
+    /* Halting WDT  */
+    MAP_WDT_A_holdTimer();
+
     Initalise_HCSR04();
     initMotorDriver();
     initWheelEncoder();
     initLineSensor();
+    initUARTUSB();
 
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
     GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1);
@@ -36,21 +41,19 @@ int main(void)
     Interrupt_disableSleepOnIsrExit();
     Interrupt_enableMaster();
 
-    /* Configure P1.0 and set it to LOW */
-    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
-    GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
 
     while (1)
     {
-        Delay(3000);
+        //Delay(3000);
 
         /* Obtain distance from HCSR04 sensor and check if its less then minimum distance */
-        if ((getHCSR04Distance() < MIN_DISTANCE))
-            GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);
-        else
-            GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
+        // if ((getHCSR04Distance() < MIN_DISTANCE))
+        //     GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);
+        // else
+        //     GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
 
-        printObjectDistance();
+        // printObjectDistance();
+        MAP_PCM_gotoLPM0();
     }
 }
 
@@ -59,34 +62,90 @@ void PORT1_IRQHandler(void)
     uint32_t status = MAP_GPIO_getEnabledInterruptStatus(GPIO_PORT_P1);
     GPIO_clearInterruptFlag(GPIO_PORT_P1, status);
 
-    if (status & GPIO_PIN1)
-    {
-        if (carState != MOV_STOP)
-        {
-            carState += 1;
-        }
-        else
-        {
-            carState = MOV_FORWARD;
-        }
-
-        if (carState == MOV_FORWARD){
-            goForward();
-        }
-        else if (carState == MOV_LEFT)
-        {
-            turnLeft();
-        }
-        else if (carState == MOV_RIGHT)
-        {
-            turnRight();
-        }
-        else
-        {
-            isStop();
-            carState = MOV_STOP;
-        }
-    }
+    // button press on p1.1
+//    if (status & GPIO_PIN1)
+//    {
+//    }
 
     Delay(150000);
 }
+
+/* EUSCI A0 UART ISR - Echoes data back to PC host */
+void EUSCIA0_IRQHandler(void)
+{
+    uint32_t status = MAP_UART_getEnabledInterruptStatus(EUSCI_A0_BASE);
+
+
+    if(status & EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG)
+    {
+        /*IF THE ENGINE IS OFF AND RECEIVE A SIGNAL TO TURN ON, CHANGE VAR TO ENGINE ON AND TRANSMISSION TO MANUAL*/
+        if(carEngine == ENGINE_OFF && MAP_UART_receiveData(EUSCI_A0_BASE) == ENGINE_ON){
+            carEngine = ENGINE_ON;
+            carTransM = TRNASMANUAL;
+        }
+
+        /*IF THE ENGINE IS ON AND RECEIVE A SIGNAL TO TURN OFF, CHANGE VAR TO ENGINE OFF*/
+        if(carEngine == ENGINE_ON && MAP_UART_receiveData(EUSCI_A0_BASE) == ENGINE_OFF){
+            carEngine = ENGINE_OFF;
+        }
+
+        /*IF THE ENGINE IS ON AND RECEIVE A SIGNAL TO CHANGE TRANSMISSION TO AUTO, ENGAGE THE ULTRASONIC AND TRACKER*/
+        if(carEngine == ENGINE_ON && MAP_UART_receiveData(EUSCI_A0_BASE) == TRANSAUTO){
+            //call Autodetecting and line tracking method.
+        }
+
+
+        if(MAP_UART_receiveData(EUSCI_A0_BASE) == INCREASE_POW){
+            //call increase duty cycle
+        }
+        if(MAP_UART_receiveData(EUSCI_A0_BASE) == DECREASE_POW){
+            //call decrease duty cycle
+        }
+
+
+        if(carEngine == ENGINE_ON && carTransM = TRNASMANUAL){manualControl();}
+
+
+        MAP_UART_transmitData(EUSCI_A0_BASE, '/');
+    }
+
+}
+
+void manualControl(){
+
+    if(MAP_UART_receiveData(EUSCI_A0_BASE) == FORWARD){
+
+        //sendBytes(forward);
+        goForward();
+
+
+    } else if (MAP_UART_receiveData(EUSCI_A0_BASE) == STOP){
+
+        //sendBytes(stop);
+        isStop();
+
+
+    } else if (MAP_UART_receiveData(EUSCI_A0_BASE) == LEFT){
+
+        //sendBytes(left);
+        turnLeft();
+
+
+    } else if (MAP_UART_receiveData(EUSCI_A0_BASE) == RIGHT){
+
+        //sendBytes(right);
+        turnRight();
+
+
+    } else if (MAP_UART_receiveData(EUSCI_A0_BASE) == REVERSE){
+
+        //sendBytes(reverse);
+        isReverse();
+
+
+    }
+
+}
+
+
+

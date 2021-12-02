@@ -11,7 +11,8 @@ float getHCSR04Distance(void);
 void validateObjectMessage(float objectDistance);
 void printObjectDistance(void);
 
-extern bool stoppedStatus;
+
+extern volatile bool carState ;
 extern volatile uint32_t SR04IntTimes;
 
 #endif

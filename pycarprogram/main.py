@@ -20,27 +20,30 @@ def key_pressed(event):
     global mvt_label
 
     mvt_label.destroy()
-    
-    #forward
-    if event.char == 'w':
-        msp432.write(b'w')
-        mvt_label=tk.Label(window,text="MOVING FORWARD")
-       
-    #left
-    if event.char == 'a':
-        msp432.write(b'a')
-        mvt_label=tk.Label(window,text="MOVING LEFT")
+    try:
+        #forward
+        if event.char == 'w':
+            msp432.write(b'w')
+            mvt_label=tk.Label(window,text="MOVING FORWARD")
         
-    #reverse
-    if event.char == 's':
-        msp432.write(b'r')
-        mvt_label=tk.Label(window,text="REVERSING")
-    #right
-    if event.char == 'd':
-        msp432.write(b'd')
-        mvt_label=tk.Label(window,text="MOVING RIGHT")
-    
-    mvt_label.grid(row=2, column=1)
+        #left
+        if event.char == 'a':
+            msp432.write(b'a')
+            mvt_label=tk.Label(window,text="MOVING LEFT")
+            
+        #reverse
+        if event.char == 's':
+            msp432.write(b'r')
+            mvt_label=tk.Label(window,text="REVERSING")
+        #right
+        if event.char == 'd':
+            msp432.write(b'd')
+            mvt_label=tk.Label(window,text="MOVING RIGHT")
+        
+        mvt_label.grid(row=2, column=1)
+    except:
+        mvt_label=tk.Label(window,text="NO SUCH COMMAND")
+        mvt_label.grid(row=2, column=1)
     
 
     #read data from msp432

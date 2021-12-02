@@ -1,6 +1,7 @@
 #include "header/ultrasonic.h"
 #include "header/util.h"
 #include "header/motordriver.h"
+#include "header/main.h"
 
 void Initalise_HCSR04(void)
 {
@@ -95,31 +96,23 @@ void validateObjectMessage(float objectDistance)
         objectDistance = getHCSR04Distance();
 
         /* if detected object and distance is less than 10cm, stop the car.
-        if sensor reading is more than 10cm it will enable movement
-        */
+        if sensor reading is more than 10cm it will enable movement*/
 
         if (objectDistance < 15)
         {
-            //TODO:   Method to call isStop() from Motor Driver
-            if (stoppedStatus == false)
+            //call isStop() from Motor Driver
+            if (carState == STATE_CLEAR)
             {
                 isStop();
-                stoppedStatus = true;
+                carState = STATE_BLOCKED;
             }
             //strcpy(message, "Object detected!");
         }
         else
         {
-            stoppedStatus = false;
-            goForward();
+            carState = STATE_CLEAR;
+            //goForward();
             //strcpy(message, "Clear of Obstacles.");
-        }
-
-        if (stoppedStatus == true)
-        {
-            turnLeft();
-            Delay(200000);
-            stoppedStatus = false;
         }
 
         //printf("Message: %s \n", message);
