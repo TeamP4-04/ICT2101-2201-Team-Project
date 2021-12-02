@@ -3,11 +3,19 @@
  <body>
   {% for row in rows %}
   <h1>
-    Game {{row["gameID"]}} Log {{row["logID"]}}
+      Log {{row["logID"]}}
   </h1>
   <br>
   <table class = "table table-borderless">
     <tbody>
+      <tr class = "d-flex">
+        <th class = "col-4"> Stage ID: </th>
+        <td class = "col-2"> {{row["stageID"]}} </td>
+      </tr>
+      <tr class = "d-flex">
+        <th class = "col-4"> Commands: </th>
+        <td class = "col-2"> {{row["commands"]}} </td>
+      </tr>
       <tr class = "d-flex">
           <th class = "col-4"> Distance Travelled: </th>
           <td class = "col-2"> {{row["distance_travelled"]}} </td>
@@ -20,7 +28,7 @@
         </tr>
         <tr class = "d-flex">
           <th class = "col-4"> Obstacles Distance: </th>
-          <td class = "col-2"> {{row["Obs_distance"]}} </td>
+          <td class = "col-2"> {{row["obstacle_position"]}} </td>
           <td class = "col-6"><strong>cm</strong></td>
         </tr>
         <tr class = "d-flex">

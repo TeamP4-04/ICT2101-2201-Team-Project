@@ -6,10 +6,10 @@
       {% for row in rows %}
         <tr class = "d-flex">
             <th class = "col-8">
-              <h4>Game {{row["gameID"]}} Log {{row["logID"]}}</h4>
+              <h4>Log {{row["logID"]}}</h4>
             </th>
             <td class = "col-4"> 
-              <a href = "/logs/game{{row['gameID']}}/log{{row['logID']}}" class="details">View details</a> 
+              <a href = "/logs/log{{row['logID']}}" class="details">View details</a> 
             </td>
         </tr>
       {% endfor %}
