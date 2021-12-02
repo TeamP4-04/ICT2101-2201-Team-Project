@@ -49,38 +49,29 @@ int main(void)
 
     while (1)
     {
+        /* CHECK IF PATH INFRONT CAR IS CLEAR OR NOT*/
+        if ((getHCSR04Distance() < MIN_DISTANCE)){
+            carState = STATE_BLOCKED;
+        }
+        else {
+            carState = STATE_CLEAR;
+        }
+        printf("the car state is : %d\n", carState);
+        printObjectDistance();
+
+
         /*IF TRANSMISSION IS MANUAL, GO TO SLEEP AND WAIT FOR INTERRUPTS, ELSE IF AUTO, USE ULTRASONIC AND LINESENSOR*/
         if (carTransM == TRANSMANUAL)
         {
             //MAP_PCM_gotoLPM0();
         }
 
-        else if (carTransM == TRANSAUTO) {
-
-            /* Obtain distance from ultrasonic sensor and check if its less then minimum distance to determine move or not*/
-            if ((getHCSR04Distance() < MIN_DISTANCE)){
-                carState = STATE_BLOCKED;
-            }
-            else {
-                carState = STATE_CLEAR;
-            }
-
-            //printf("the car state is : %d\n", carState);
-            //printObjectDistance();
-
-            /*ONLY ALLOW MOVEMENT WHEN NO OBSTACLES*/
-            if (carState == STATE_CLEAR)
-            {
-                trackLine();
-
-            } else if (carState == STATE_BLOCKED) {
-
-                setCarMvtSate(STOP);
-
-            }
-
+        /*IF TRANSMISSION IS AUTO, ONLY ALLOW MOVEMENT WHEN PATH IS CLEAR*/
+        if (carTransM == TRANSAUTO && carState == STATE_CLEAR) {
+            trackLine();
+        } else if (carState == STATE_BLOCKED) {
+            setCarMvtSate(STOP);
         }
-
     }
 }
 
@@ -102,7 +93,7 @@ void EUSCIA0_IRQHandler(void)
         {
             carEngine = ENGINE_OFF;
             setCarMvtSate(STOP);
-            resetCar();
+
         }
 
         /*IF THE ENGINE IS ON AND RECEIVE A SIGNAL TO CHANGE TRANSMISSION TO AUTO, ENGAGE THE ULTRASONIC AND TRACKER*/
