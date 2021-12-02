@@ -1,15 +1,18 @@
-#ifndef HEADER_ULTRASONIC_H
-#define HEADER_ULTRASONIC_H
+#include "lib.h"
 
-#define MIN_DISTANCE    15.0f
-#define TICKPERIOD      1000
+#ifndef ULTRA_H
+#define ULTRA_H
 
-static void Delay(uint32_t loop);
+#define TICKPERIOD 1000
+
 void Initalise_HCSR04(void);
-void TA0_0_IRQHandler(void);
-static uint32_t getHCSR04Time(void);
+uint32_t getHCSR04Time(void);
 float getHCSR04Distance(void);
-float printobjectDistance(void);
-float validateObjectMessage(float objectDistance);
+void validateObjectMessage(float objectDistance);
+void printObjectDistance(void);
 
-#endif /* HEADER_ULTRASONIC_H */
+extern bool stoppedStatus;
+extern volatile uint32_t SR04IntTimes;
+
+#endif
+

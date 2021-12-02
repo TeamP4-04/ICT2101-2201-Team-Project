@@ -1,23 +1,14 @@
-#ifndef HEADER_MAIN_H
-#define HEADER_MAIN_H
+#include "lib.h"
 
-/* DriverLib Includes */
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+#ifndef MAIN_HEADER_H
+#define MAIN_HEADER_H
 
-/* Standard Includes */
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
-#include "myLib.h"
-#include "wheelencoder.h"
-#include "motordriver.h"
-#include "ultrasonic.h"
+#define MIN_DISTANCE    15.0f
+
+volatile uint32_t SR04IntTimes;
+bool stoppedStatus ;
+int stateCounter ;
 
 
-// interrupts methods
+#endif 
 
-
-
-
-#endif /* HEADER_MAIN_H */

@@ -1,21 +1,11 @@
-#include "myLib.h"
-#include "ultrasonic.h"
+#include "header/ultrasonic.h"
+#include "header/util.h"
+#include "header/motordriver.h"
 
-/*Ultrasonic Global Variables*/
-volatile uint32_t SR04IntTimes;
-
-static void Delay(uint32_t loop)
-{
-    volatile uint32_t i;
-
-    for (i = 0 ; i < loop ; i++);
-}
-
-// Intialise Ultrasonic Sensor
 void Initalise_HCSR04(void)
 {
     /* Timer_A UpMode Configuration Parameter */
-    const Timer_A_UpModeConfig upConfig =
+    const Timer_A_UpModeConfig sonicConfig =
     {
             TIMER_A_CLOCKSOURCE_SMCLK,              // SMCLK Clock Source
             TIMER_A_CLOCKSOURCE_DIVIDER_3,          // SMCLK/3 = 1MHz
@@ -25,8 +15,6 @@ void Initalise_HCSR04(void)
             TIMER_A_DO_CLEAR                        // Clear value
     };
 
-    int a = CS_getSMCLK();
-
     /* Configuring P3.6 as Output */
     GPIO_setAsOutputPin(GPIO_PORT_P3, GPIO_PIN6);    // Trigger Pin (P3.6)
     GPIO_setOutputLowOnPin(GPIO_PORT_P3, GPIO_PIN6);
@@ -34,30 +22,19 @@ void Initalise_HCSR04(void)
     GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P3, GPIO_PIN7); // Echo Pin (P3.7)
 
 
-    /* Configuring Timer_A0 for Up Mode */
-    Timer_A_configureUpMode(TIMER_A0_BASE, &upConfig);
+    /* Configuring Timer_A1 for Up Mode */
+    Timer_A_configureUpMode(TIMER_A1_BASE, &sonicConfig);
 
     /* Enabling interrupts and starting the timer */
-    Interrupt_enableInterrupt(INT_TA0_0);
-    //Timer_A_startCounter(TIMER_A0_BASE, TIMER_A_UP_MODE);
+    Interrupt_enableInterrupt(INT_TA1_0);
+    Timer_A_clearTimer(TIMER_A1_BASE);
 
-    //Timer_A_stopTimer(TIMER_A0_BASE);
-    Timer_A_clearTimer(TIMER_A0_BASE);
+    printf("Ultra-sonic initialised\n");
 
 }
 
-// Interrupt for Ultrasonic Sensor
-void TA0_0_IRQHandler(void)
-{
-    /* Increment global variable (count number of interrupt occurred) */
-    SR04IntTimes++;
-
-    /* Clear interrupt flag */
-    Timer_A_clearCaptureCompareInterrupt(TIMER_A0_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_0);
-} 
-
 // Retrieve the Pulse time from Ultrasonic Sensor
-static uint32_t getHCSR04Time(void)
+uint32_t getHCSR04Time(void)
 {
     uint32_t pulsetime = 0;
 
@@ -65,10 +42,10 @@ static uint32_t getHCSR04Time(void)
     pulsetime = SR04IntTimes * TICKPERIOD;
 
     /* Number of ticks (between 1 to 999) before the interrupt could occur */
-    pulsetime += Timer_A_getCounterValue(TIMER_A0_BASE);
+    pulsetime += Timer_A_getCounterValue(TIMER_A1_BASE);
 
     /* Clear Timer */
-    Timer_A_clearTimer(TIMER_A0_BASE);
+    Timer_A_clearTimer(TIMER_A1_BASE);
 
     Delay(3000);
 
@@ -91,14 +68,15 @@ float getHCSR04Distance(void)
 
     /* Start Timer */
     SR04IntTimes = 0;
-    Timer_A_clearTimer(TIMER_A0_BASE);
-    Timer_A_startCounter(TIMER_A0_BASE, TIMER_A_UP_MODE);
+    //clear previous counter
+    Timer_A_clearTimer(TIMER_A1_BASE);
+    Timer_A_startCounter(TIMER_A1_BASE, TIMER_A_UP_MODE);
 
     /* Detects negative-edge */
     while(GPIO_getInputPinValue(GPIO_PORT_P3, GPIO_PIN7) == 1);
 
     /* Stop Timer */
-    Timer_A_stopTimer(TIMER_A0_BASE);
+    Timer_A_stopTimer(TIMER_A1_BASE);
 
     /* Obtain Pulse Width in microseconds */
     pulseDuration = getHCSR04Time();
@@ -110,32 +88,59 @@ float getHCSR04Distance(void)
 }
 
 // Display Object Distance Message
-float validateObjectMessage(float objectDistance)
+void validateObjectMessage(float objectDistance)
 {
-    char message[100];
+    //char message[100];
 
-    objectDistance = getHCSR04Distance();
-    if (objectDistance < 10) {
-        //TODO:   Method to call isStop() from Motor Driver
-        strcpy(message,"Object Distance reached below min distance! Car stopped moving!");
-    }
-    else if (objectDistance >= 400) {
-        //TODO:   Method to call isStop() from Motor Driver
-        strcpy(message,"Object Distance reached below max distance! Car has hit an obstacle and stopped moving!");
-    }
-    else{
-        strcpy(message,"Object Distance is within the appropriate range. Car is moving!");
-    }
+        objectDistance = getHCSR04Distance();
 
-    printf("Message: %s \n", message);
+        /* if detected object and distance is less than 10cm, stop the car.
+        if sensor reading is more than 10cm it will enable movement
+        */
+
+        if (objectDistance < 15)
+        {
+            //TODO:   Method to call isStop() from Motor Driver
+            if (stoppedStatus == false)
+            {
+                isStop();
+                stoppedStatus = true;
+            }
+            //strcpy(message, "Object detected!");
+        }
+        else
+        {
+            stoppedStatus = false;
+            goForward();
+            //strcpy(message, "Clear of Obstacles.");
+        }
+
+        if (stoppedStatus == true)
+        {
+            turnLeft();
+            Delay(200000);
+            stoppedStatus = false;
+        }
+
+        //printf("Message: %s \n", message);
 }
 
 // Print the Object distance
-float printobjectDistance(void)
+void printObjectDistance(void)
 {
     float objectDistance = 0;
 
     objectDistance = getHCSR04Distance();
     validateObjectMessage(objectDistance);
     printf("Distance from an object is : %.2f cm \n", objectDistance);
+}
+
+// Interrupt for Ultrasonic Sensor
+void TA1_0_IRQHandler(void)
+{
+    /* Increment global variable (count number of interrupt occurred) */
+    SR04IntTimes++;
+
+    /* Clear interrupt flag */
+    Timer_A_clearCaptureCompareInterrupt(TIMER_A1_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_0);
 }

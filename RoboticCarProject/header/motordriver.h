@@ -1,11 +1,12 @@
-#include <myLib.h>
+#include "lib.h"
+
+#ifndef MOTORDRIVER_H
+#define MOTORDRIVER_H
 
 void initMotorDriver();
+void goForward();
 void turnLeft();
 void turnRight();
-void goForward();
 void isStop();
 
-Timer_A_PWMConfig pwmConfigLeft();
-Timer_A_PWMConfig pwmConfigRight();
-
+#endif
