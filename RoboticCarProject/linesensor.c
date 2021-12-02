@@ -1,43 +1,58 @@
 #include "header/linesensor.h"
 #include "header/motordriver.h"
+#include "header/util.h"
+#include "header/main.h"
 
-void initLineSensor(){
+void initLineSensor()
+{
 
-    //SETTING PINS AS INPUT
-    GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P2, GPIO_PIN7); //LEFT LINESENSOR
-    GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN3); //RIGHT LINESENSOR
-
-    //CLEAR AND ENABLE INTERRUPT FOR BOTH SENSOR
-    GPIO_clearInterruptFlag(GPIO_PORT_P2, GPIO_PIN7);
-    GPIO_clearInterruptFlag(GPIO_PORT_P2, GPIO_PIN3);
-    GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN7);
-    GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN3);
-
-
-    Interrupt_enableInterrupt(INT_PORT2);
-    Interrupt_enableSleepOnIsrExit();
-    Interrupt_enableMaster();
+    // SETTING PINS AS INPUT
+    GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN7); // LEFT LINESENSOR
+    GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN3); // RIGHT LINESENSOR
 
     printf("Line sensor initialised\n");
-
 }
 
-void PORT2_IRQHandler(void)
+void trackLine()
 {
-    uint32_t status = MAP_GPIO_getEnabledInterruptStatus(GPIO_PORT_P2);
-    GPIO_clearInterruptFlag(GPIO_PORT_P2, status);
 
-    if (status & GPIO_PIN3){
+    /*LINE TRACKER BOTH ON LOW AND TRANSMISSION SHOULD BE AUTO, MOVE FORWARD*/
+    if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN7) == 0 &&
+        GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN3) == 0)
+    {
 
-        turnRight();
-        //printf("Move Right\n");
-
+        if (mvtState != FORWARD)
+        {
+            setCarMvtSate(FORWARD);
+        }
     }
 
-    if (status & GPIO_PIN7){
-
-        //printf("Move LEFT\n");
-
+    /*LINE TRACKER LEFT HIGH, TURN LEFT*/
+    if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN7) == 1 &&
+        GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN3) == 0)
+    {
+        if (mvtState != LEFT)
+        {
+            setCarMvtSate(LEFT);
+        }
+    }
+    /*LINE TRACKER RIGHT HIGH, TURN RIGHT*/
+    if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN7) == 0 &&
+        GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN3) == 1)
+    {
+        if (mvtState != RIGHT)
+        {
+            setCarMvtSate(RIGHT);
+        }
     }
 
+    /*LINE TRACKER BOTH HIGH, STOP*/
+    if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN7) == 1 &&
+        GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN3) == 1)
+    {
+        if (mvtState != STOP)
+        {
+            setCarMvtSate(STOP);
+        }
+    }
 }

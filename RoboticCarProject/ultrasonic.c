@@ -16,6 +16,8 @@ void Initalise_HCSR04(void)
             TIMER_A_DO_CLEAR                        // Clear value
     };
 
+    int a = CS_getSMCLK();
+
     /* Configuring P3.6 as Output */
     GPIO_setAsOutputPin(GPIO_PORT_P3, GPIO_PIN6);    // Trigger Pin (P3.6)
     GPIO_setOutputLowOnPin(GPIO_PORT_P3, GPIO_PIN6);
@@ -83,49 +85,16 @@ float getHCSR04Distance(void)
     pulseDuration = getHCSR04Time();
 
     /* Calculating distance in cm */
-    calculatedDistance = (float)pulseDuration / 58.0f;
+    calculatedDistance = (float)pulseDuration / 236.0f;
 
     return calculatedDistance;
 }
 
-// Display Object Distance Message
-void validateObjectMessage(float objectDistance)
-{
-    //char message[100];
-
-        objectDistance = getHCSR04Distance();
-
-        /* if detected object and distance is less than 10cm, stop the car.
-        if sensor reading is more than 10cm it will enable movement*/
-
-        if (objectDistance < 15)
-        {
-            //call isStop() from Motor Driver
-            if (carState == STATE_CLEAR)
-            {
-                isStop();
-                carState = STATE_BLOCKED;
-            }
-            //strcpy(message, "Object detected!");
-        }
-        else
-        {
-            carState = STATE_CLEAR;
-            goForward();
-            //strcpy(message, "Clear of Obstacles.");
-        }
-
-        //printf("Message: %s \n", message);
-}
 
 // Print the Object distance
 void printObjectDistance(void)
 {
-    float objectDistance = 0;
-
-    objectDistance = getHCSR04Distance();
-    validateObjectMessage(objectDistance);
-    printf("Distance from an object is : %.2f cm \n", objectDistance);
+    printf("Distance from an object is : %.2f cm \n", getHCSR04Distance());
 }
 
 // Interrupt for Ultrasonic Sensor

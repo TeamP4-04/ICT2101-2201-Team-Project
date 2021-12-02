@@ -54,7 +54,7 @@ void initMotorDriver(){
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
 
 
-    printf("Init-ed the motor\n");
+    printf("Motordriver initialised\n");
 
 };
 

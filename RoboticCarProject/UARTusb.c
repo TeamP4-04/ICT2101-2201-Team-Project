@@ -32,7 +32,7 @@ void initUARTUSB(void){
     /* Enabling interrupts */
     MAP_UART_enableInterrupt(EUSCI_A0_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
     MAP_Interrupt_enableInterrupt(INT_EUSCIA0);
-    MAP_Interrupt_enableSleepOnIsrExit();
+    MAP_Interrupt_disableSleepOnIsrExit();
     MAP_Interrupt_enableMaster();
 
     printf("communication initialised\n");
