@@ -12,16 +12,17 @@
 
 
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery first, then Ajax, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
 	<!--BLOCKY Sources Here -->
 	<script src="{{ url_for('static', filename='/blockly/blockly_compressed.js') }}"></script>
 	<script src="{{ url_for('static', filename='/blockly/blocks_compressed.js') }}"></script>
-	<script src="{{ url_for('static', filename='/blockly/python_compressed.js') }}"></script>
-	<script src="{{ url_for('static', filename='/blockly/custom.js') }}"></script>
+	<script src="{{ url_for('static', filename='/blockly/javascript_compressed.js') }}"></script>
+	<script src="{{ url_for('static', filename='/blockly/customblock.js') }}"></script>
 	<script src="{{ url_for('static', filename='/blockly/msg/js/en.js') }}"></script>
 	
     {% if title %}
@@ -36,7 +37,7 @@
         <div class="container">
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="/main">Dashboard</a>
+              <a class="nav-item nav-link" href="/">Dashboard</a>
               <a class="nav-item nav-link" href="/logs">Logs</a>
 			  <a class="nav-item nav-link" href="/tutorials">Tutorials</a>
 			  <a class="nav-item nav-link" href="/configuration">Configurations</a>
