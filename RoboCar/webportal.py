@@ -12,7 +12,7 @@ def home():
     conn=sql.connect("test.db")
     conn.row_factory = sql.Row
     cur=conn.cursor()
-    cur.execute("select distance_travelled, rotation, acceleration, obstacle_distance from CarInformation where carInformationID=1")
+    cur.execute("select distance_travelled, rotation, acceleration, obstacle_distance from CarInformation where carInformationID = abs(random()) % (3 - 1) + 1")
     row=cur.fetchone()
     if request.method == "POST":
         connInsert=sql.connect("test.db")
@@ -51,7 +51,7 @@ def logdetails(logID):
     conn.row_factory = sql.Row
 
     cur=conn.cursor()
-    cur.execute("select logID, commands, stageID, distance_travelled, rotation, obstacle_distance, time_spent from Logs, CarInformation where carInformationID = ? and logID = ?", (1, logID))
+    cur.execute("select logID, commands, stageID, distance_travelled, rotation, obstacle_distance, time_spent from Logs, CarInformation where carInformationID = abs(random()) % (3 - 1) + 1 and logID = ?", (logID))
 
     rows=cur.fetchall()
     conn.close()
