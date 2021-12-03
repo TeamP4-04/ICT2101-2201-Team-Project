@@ -91,5 +91,5 @@ a.article-title:hover {
 
 img {
 	width:20px;
-	height:30px;
+	height:20px;
 }
