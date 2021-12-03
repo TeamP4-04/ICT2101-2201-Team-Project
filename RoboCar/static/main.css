@@ -79,6 +79,7 @@ a.article-title:hover {
   font-size: 2.5rem;
 }
 
+
 #virtualMap
 {
   height: 350px;
@@ -99,4 +100,40 @@ a.article-title:hover {
 img {
 	width:20px;
 	height:20px;
+}
+
+/* buttons for logs page */
+.details {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  border-radius: 12px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.back {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  border-radius: 12px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.resume {
+  background-color: #0794c4; /* blue */
+  border: none;
+  border-radius: 12px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }

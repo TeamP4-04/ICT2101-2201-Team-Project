@@ -5,7 +5,6 @@ import sqlite3 as sql
 
 app = Flask(__name__)
 
-
 @app.route("/", methods=["POST", "GET"])
 def home():
     conn=sql.connect("test.db")
@@ -27,7 +26,6 @@ def home():
     else:  
         conn.close()    
         return render_template('main.html', title='Main', row = row)
-
 
 @app.route("/logs")
 def logs():
@@ -52,7 +50,7 @@ def logdetails(logID):
 
     rows=cur.fetchall()
     conn.close()
-    return render_template('log1.html', title='Log' + logID, rows = rows)
+    return render_template('logs.html', title='Logs', rows = rows)
 
 
 @app.route("/tutorials")
