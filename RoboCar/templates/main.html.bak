@@ -59,13 +59,13 @@
 			<div class="col">
 			  <div class="content-section">
 				<h6>Obstacle Distance</h6>
-				<p class='text-muted'>Info here</p>
+				<p class='text-muted'>{{obstacle_distance}}</p>
 			  </div>
 			</div>
 			<div class="col">
 			  <div class="content-section">
 				<h6>Acceleration</h6>
-				<p class='text-muted'>Info here</p>
+				<p class='text-muted'>{{acceleration}}</p>
 			  </div>
 			</div>
 			<div class="col">
@@ -99,6 +99,25 @@
 						alert(code);
 					} catch (e) {
 						alert(e);
+					}
+				}
+				var minutesLabel = document.getElementById("minutes");
+				var secondsLabel = document.getElementById("seconds");
+				var totalSeconds = 0;
+				setInterval(setTime, 1000);
+
+				function setTime() {
+					++totalSeconds;
+					secondsLabel.innerHTML = pad(totalSeconds % 60);
+					minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+				}
+
+				function pad(val) {
+				var valString = val + "";
+				if (valString.length < 2) {
+					return "0" + valString;
+				} else {
+					return valString;
 					}
 				}
 				
