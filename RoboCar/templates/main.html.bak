@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{% block content %}
+      <div class="row">
+		<div class="col-sm" id="blocklyDiv" style="height: 480px; width: 600px;"> 
+			<xml id="toolbox" style="display: none">
+				<block type="controls_if"></block>
+				<block type="controls_repeat_ext"></block>
+				<block type="logic_compare"></block>
+				<block type="math_number"></block>
+				<block type="math_arithmetic"></block>
+				<block type="text"></block>
+				<block type="text_print"></block>
+			</xml>			  
+		</div>
+        <div class="col-lg-8">
+			<div class="row">
+				<div class="col-9">
+					<article class="media content-section">
+						<div class="media-body">     
+							<h2><a class="article-title">Virtual Map</a></h2>
+							<div class="content-section">
+								<p class='text-muted'>displays here</p>
+							</div>
+						</div>
+					</article>
+				</div>
+				<div class="col">
+					<div class="row">
+						<div class="col">
+							<div class="content-section">
+								<h6>Stages</h6>
+								<p class='text-muted'>Info here</p>
+							 </div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="content-section">
+								<h6>Legend</h6>
+								<p class='text-muted'>Info here</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			 <div class="col">
+			  <div class="content-section">
+				<h6>Distance Travelled</h6>
+				<p class='text-muted'>{{distance_travelled}}</p> 
+			  </div>
+			</div>
+			<div class="col">
+			  <div class="content-section">
+				<h6>Rotation</h6>
+				<p class='text-muted'>{{rotation}}</p>
+			  </div>
+			</div>
+			<div class="col">
+			  <div class="content-section">
+				<h6>Obstacle Distance</h6>
+				<p class='text-muted'>Info here</p>
+			  </div>
+			</div>
+			<div class="col">
+			  <div class="content-section">
+				<h6>Acceleration</h6>
+				<p class='text-muted'>Info here</p>
+			  </div>
+			</div>
+			<div class="col">
+			  <div class="content-section">
+				<h6>Time Spent</h6>
+				<p class='text-muted'>Info here</p>
+			  </div>
+			</div>
+			</div>
+		</div>
+		 
+      </div>
+	  <p>
+		<button type="button" onclick="run()">Run</button>		
+	  </p>
+	 
+	 
+		
+			<script>
+				var workspace = Blockly.inject('blocklyDiv',
+				{toolbox: document.getElementById('toolbox')});
+				
+				function run(){
+					window.LoopTrap = 1000;
+					Blockly.Python.INFINITE_LOOP_TRAP = 'if (--window.LoopTrap == 0) throw "Infinite loop.";\n'; 
+					var code = Blockly.Python.workspaceToCode(workspace);
+					Blockly.Python.INFINITE_LOOP_TRAP = null;
+					try {
+					<!-- eval runs as actual code so dont do it here -->
+						<!--eval(code);
+						alert(code);
+					} catch (e) {
+						alert(e);
+					}
+				}
+				
+			</script>
+
+	  
+{% endblock content %}
+
