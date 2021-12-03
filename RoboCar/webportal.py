@@ -8,6 +8,8 @@ from wtforms import IntegerField, SubmitField
 from sqlalchemy.engine import create_engine
 import sqlite3 as sql
 
+import tutorial as tut
+
 app = Flask(__name__)
 
 db = SQLAlchemy(app)
@@ -32,6 +34,7 @@ def logs():
     return render_template('logs.html', title='Logs')
 
 
+# Main Tutorial Page
 @app.route("/tutorials")
 def tutorials():
     conn = sql.connect("Robocar.db")
@@ -45,7 +48,7 @@ def tutorials():
     print(rows)
     return render_template('tutorials.html', title='Tutorials', rows=rows)
 
-
+# Individual Tutorial Page
 @app.route("/tutorial/<tutorialID>")
 def tutorialdetails(tutorialID):
     conn = sql.connect("Robocar.db")
@@ -60,23 +63,6 @@ def tutorialdetails(tutorialID):
     last_id = cur.fetchone()
 
     return render_template('tutorial1.html', title='Tutorial ' + tutorialID, rows=rows, last_id=last_id)
-
-# @app.route("/tutorials")
-# def tutorials():
-#     return render_template('tutorials.html', title='Tutorials')
-
-# @app.route("/tutorial1")
-# def tutorialdetails():
-#     return render_template('tutorial1.html', title='Tutorial1')
-
-# @app.route("/tutorial2")
-# def tutorialdetails():
-#     return render_template('tutorial2.html', title='Tutorial2')
-
-# @app.route("/tutorial3")
-# def tutorialdetails():
-#     return render_template('tutorial3.html', title='Tutorial3')
-
 
 @app.route("/configuration", methods=["GET", "POST"])
 def configuration():
