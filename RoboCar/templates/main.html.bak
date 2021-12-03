@@ -29,7 +29,11 @@
 						<div class="col">
 							<div class="content-section">
 								<h6>Stages</h6>
-								<p class='text-muted'>Info here</p>
+								<p class='text-muted'>
+								<button type"button">Stage 1</button>
+								<button type"button">Stage 2</button>
+								<button type"button">Stage 3</button>
+								</p>
 							 </div>
 						</div>
 					</div>
@@ -37,13 +41,13 @@
 						<div class="col">
 							<div class="content-section">
 								<h6>Legend</h6>
-								<figure> <p class='text-muted'>Car: <img src="https://webkit.org/blog-files/color-gamut/Webkit-logo-P3.png"
+								<figure> <p class='noselect'>Car: <img src="https://webkit.org/blog-files/color-gamut/Webkit-logo-P3.png"
+								alt="Obstacle"></figure>
+								<figure> <p class='noselect'>Obstacle: <img src="https://www.pngkey.com/png/full/816-8162670_light-blue-box-light-blue-overlay-transparent.png"
 								style="width:20px;height:30;" alt="Obstacle"></figure>
-								<figure> <p class='text-muted'>Obstacle: <img src="https://www.pngkey.com/png/full/816-8162670_light-blue-box-light-blue-overlay-transparent.png"
+								<figure> <p class='noselect'>Path Trace: <img src="https://lh3.googleusercontent.com/proxy/awXUqPYwQh3M2dfXvqAouFmWcESAw6heFpjHWJZSqSH1WQ7hUqqxX-4jSOsnE4M2CgE3Nr2USI_c16VAVmmHP6pybazh1pTUP4jp9f6PXKkkTw"
 								style="width:20px;height:30;" alt="Obstacle"></figure>
-								<figure> <p class='text-muted'>Path Trace: <img src="https://lh3.googleusercontent.com/proxy/awXUqPYwQh3M2dfXvqAouFmWcESAw6heFpjHWJZSqSH1WQ7hUqqxX-4jSOsnE4M2CgE3Nr2USI_c16VAVmmHP6pybazh1pTUP4jp9f6PXKkkTw"
-								style="width:20px;height:30;" alt="Obstacle"></figure>
-								<figure> <p class='text-muted'>Empty Path: <img src="https://www.meme-arsenal.com/memes/c4960a27bdd614f9eec7f1b59deb374b.jpg"
+								<figure> <p class='noselect'>Empty Path: <img src="https://www.meme-arsenal.com/memes/c4960a27bdd614f9eec7f1b59deb374b.jpg"
 								style="width:20px;height:30;" alt="Obstacle"></figure>
 								</p>
 							</div>
@@ -55,31 +59,31 @@
 			 <div class="col">
 			  <div class="content-section">
 				<h6>Distance Travelled</h6>
-				<p class='text-muted'>{{distance_travelled}}</p> 
+				<p class='noselect'>{{distance_travelled}}</p> 
 			  </div>
 			</div>
 			<div class="col">
 			  <div class="content-section">
 				<h6>Rotation</h6>
-				<p class='text-muted'>{{rotation}}</p>
+				<p class='noselect'>{{rotation}}</p>
 			  </div>
 			</div>
 			<div class="col">
 			  <div class="content-section">
 				<h6>Obstacle Distance</h6>
-				<p class='text-muted'>{{obstacle_distance}}</p>
+				<p class='noselect'>{{obstacle_distance}}</p>
 			  </div>
 			</div>
 			<div class="col">
 			  <div class="content-section">
 				<h6>Acceleration</h6>
-				<p class='text-muted'>{{acceleration}}</p>
+				<p class='noselect'>{{acceleration}}</p>
 			  </div>
 			</div>
 			<div class="col">
 			  <div class="content-section">
 				<h6>Time Spent</h6>
-				<p class='text-muted'><label id="minutes">00</label>:<label id="seconds">00</label></p>
+				<p class='noselect'><label id="minutes">00</label>:<label id="seconds">00</label></p>
 			  </div>
 			</div>
 			</div>
