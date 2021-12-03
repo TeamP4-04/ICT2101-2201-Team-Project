@@ -1,83 +1,68 @@
 from flask import Flask, render_template, url_for, request
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField
-from flask_sqlalchemy import SQLAlchemy
-
+import sqlite3 as sql
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Robocar.db'
-#db = SQLAlchemy(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-db = SQLAlchemy(app)
-
-class Logs(db.Model):
-    logID = db.Column(db.Integer, primary_key=True)
-    stageID = db.Column(db.Integer, nullable=False)
-    commands = db.Column(db.Text, nullable=False)
-    
-    def __init__(self, stageID, commands):
-        self.stageID = stageID
-        self.commands = commands
-
-    
-class CarInformation(db.Model):
-    carInformationID = db.Column(db.Integer, primary_key=True)
-    distance_travelled = db.Column(db.Text, nullable=False)
-    rotation = db.Column(db.Text, nullable=False)
-    acceleration = db.Column(db.Text, nullable=False)
-    time_spent = db.Column(db.Text, nullable=False)
-    obstacle_position = db.Column(db.Text, nullable=False)
-    car_point = db.Column(db.Text, nullable=False)
-
-    
-class Tutorial(db.Model):
-    tutorialID = db.Column(db.Integer, primary_key=True)
-    tutorialName = db.Column(db.Text, nullable=False)
-    tutorialOverview = db.Column(db.Text, nullable=False)
-    tutorialVideo = db.Column(db.Text, nullable=False)
-    
-class Configuration(db.Model):
-    configurationID = db.Column(db.Integer, primary_key=True)
-    max_speed = db.Column(db.Text, nullable=False)
-    rotation_speed = db.Column(db.Text, nullable=False)
-    object_detection_range = db.Column(db.Text, nullable=False)
-
-#class ConfigForm(FlaskForm):
-#    MaxSpeed = IntegerField('Maximum Speed of Robotic Car')
-#    RotationSpeed = IntegerField('Rotation Speed of Robotic Car')
-#    ObstacleDistance = IntegerField('Obstacle Distance')
-#    submit = SubmitField('Submit')
 
 @app.route("/", methods=["POST", "GET"])
 def home():
+    conn=sql.connect("test.db")
+    conn.row_factory = sql.Row
+    cur=conn.cursor()
+    cur.execute("select distance_travelled, rotation, acceleration, obstacle_distance from CarInformation where carInformationID=1")
+    row=cur.fetchone()
     if request.method == "POST":
+        connInsert=sql.connect("test.db")
+        connInsert.row_factory = sql.Row
+        curInsert=connInsert.cursor()
+        
         commands = request.get_data()
-        logs = Logs(1,commands)
-        db.session.add(logs)
-        db.session.commit()
-        print(commands)
+        curInsert.execute("insert into Logs (stageID, commands) values (?, ?)", (1, commands))
+        connInsert.commit()
+        connInsert.close()
+        conn.close()
+        return render_template('main.html', title='Main', row = row)
+    else:  
+        conn.close()    
+        return render_template('main.html', title='Main', row = row)
 
-        return render_template('main.html', title='Main')
-    else:    
-        return render_template('main.html', title='Main')
 
 @app.route("/logs")
 def logs():
-    return render_template('logs.html', title='Logs')
+    conn=sql.connect("test.db")
+    conn.row_factory = sql.Row
+
+    cur=conn.cursor()
+    cur.execute("select logID from Logs order by logID DESC")
+
+    rows=cur.fetchall()
+    conn.close()
+    return render_template('logs.html', title='Logs', rows = rows)
+
+
+@app.route("/logs/log<logID>")
+def logdetails(logID):
+    conn=sql.connect("test.db")
+    conn.row_factory = sql.Row
+
+    cur=conn.cursor()
+    cur.execute("select logID, commands, stageID, distance_travelled, rotation, obstacle_distance, time_spent from Logs, CarInformation where logID = carInformationID and logID = ?", logID)
+
+    rows=cur.fetchall()
+    conn.close()
+    return render_template('log1.html', title='Log' + logID, rows = rows)
+
 
 @app.route("/tutorials")
 def tutorials():
     return render_template('tutorials.html', title='Tutorials')
-    
+   
+   
 @app.route("/tutorial1")
 def tutorialdetails():
     return render_template('tutorial1.html', title='Tutorial1')
-    
-#@app.route("/configuration", methods=["GET", "POST"])
-#def configuration():
-#    form = ConfigForm() 
-#    return render_template('configuration.html', form=form, title='Configuration')
     
 
 if __name__ == '__main__':

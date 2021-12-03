@@ -35,9 +35,11 @@
 						<div class="col">
 							<div class="content-section">
 								<h6>Stages</h6>
-								<p class='text-muted'>Stage 1</p>
-								<p class='text-muted'>Stage 2</p>
-								<p class='text-muted'>Stage 3</p>
+								<p class='text-muted'>
+								<button type"button">Stage 1</button>
+								<button type"button">Stage 2</button>
+								<button type"button">Stage 3</button>
+								</p>
 							 </div>
 						</div>
 					</div>
@@ -45,10 +47,15 @@
 						<div class="col">
 							<div class="content-section">
 								<h6>Legend</h6>
-								<p class='text-muted'>Blue = Obstacle</p>
-								<p class='text-muted'>Red = You</p>
-								<p class='text-muted'>White = Path</p>
-								<p class='text-muted'>Green = Finish Line</p>
+								<figure> <p class='noselect'>Car: <img style="width:20px; height:20px;" src="{{ url_for('static', filename='/assets/red.png') }}"
+								alt="Car"></figure>
+								<figure> <p class='noselect'>Obstacle: <img style="width:20px; height:20px;" src="{{ url_for('static', filename='/assets/blue.png') }}"
+								alt="Obstacle"></figure>
+								<figure> <p class='noselect'>End Point: <img style="width:20px; height:20px;" src="{{ url_for('static', filename='/assets/green.png') }}"
+								alt="End Point"></figure>
+								<figure> <p class='noselect'>Empty Path: <img style="width:20px; height:20px;" src="{{ url_for('static', filename='/assets/white.jpg') }}"
+								alt="Empty Path"></figure>
+								</p>
 							</div>
 						</div>
 					</div>
@@ -58,31 +65,31 @@
 			 <div class="col">
 			  <div class="content-section fixed">
 				<h6>Distance Travelled</h6>
-				<p class='text-muted'>Info here</p>
+				<p class='noselect'>{{row["distance_travelled"]}}</p> 
 			  </div>
 			</div>
 			<div class="col">
 			  <div class="content-section fixed">
 				<h6>Rotation</h6>
-				<p class='text-muted'>Info here</p>
+				<p class='noselect'>{{row["rotation"]}}</p>
 			  </div>
 			</div>
 			<div class="col">
 			  <div class="content-section fixed">
 				<h6>Obstacle Distance</h6>
-				<p class='text-muted'>Info here</p>
+				<p class='noselect'>{{row["obstacle_distance"]}}</p>
 			  </div>
 			</div>
 			<div class="col">
 			  <div class="content-section fixed">
 				<h6>Acceleration</h6>
-				<p class='text-muted'>Info here</p>
+				<p class='noselect'>{{row["acceleration"]}}</p>
 			  </div>
 			</div>
 			<div class="col">
 			  <div class="content-section fixed">
 				<h6>Time Spent</h6>
-				<p class='text-muted'>Info here</p>
+				<p class='noselect'><label id="minutes">00</label>:<label id="seconds">00</label></p>
 			  </div>
 			</div>
 			</div>
@@ -94,13 +101,29 @@
 				{toolbox: document.getElementById('toolbox')});
 				
 				function run(){
-					//window.LoopTrap = 1000;
-					//Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if (--window.LoopTrap == 0) throw "Infinite loop.";\n'; 
 					var code = Blockly.JavaScript.workspaceToCode(workspace);
-					//Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
 					$.post("/", code);		
 				}			
-			</script>
-			
-	  
+
+				var minutesLabel = document.getElementById("minutes");
+				var secondsLabel = document.getElementById("seconds");
+				var totalSeconds = 0;
+				setInterval(setTime, 1000);
+
+				function setTime() {
+					++totalSeconds;
+					secondsLabel.innerHTML = pad(totalSeconds % 60);
+					minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+				}
+
+				function pad(val) {
+				var valString = val + "";
+				if (valString.length < 2) {
+					return "0" + valString;
+				} else {
+					return valString;
+					}
+				}
+			</script>  
 {% endblock content %}
+
