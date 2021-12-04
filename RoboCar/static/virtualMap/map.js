@@ -97,7 +97,7 @@ class GridSystem {
 	/* --- RESET GAME --- */
 	#reset(){
 		if(confirm('Reset Game?')){
-			window.location.replace("/");
+			window.location.replace("/dashboard");
 		}
 		else{
 			return false;

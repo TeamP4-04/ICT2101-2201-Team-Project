@@ -7,7 +7,7 @@ import tutorial as tut
 app = Flask(__name__)
 
 
-@app.route("/", methods=["POST", "GET"])
+@app.route("/dashboard", methods=["POST", "GET"])
 def home():
     conn=sql.connect("test.db")
     conn.row_factory = sql.Row
@@ -59,7 +59,7 @@ def logdetails(logID):
 
 
 # Main Tutorial Page
-@app.route("/tutorials")
+@app.route("/")
 def tutorials():
     conn = sql.connect("test.db")
     conn.row_factory = sql.Row

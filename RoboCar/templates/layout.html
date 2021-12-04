@@ -24,7 +24,7 @@
 	<script src="{{ url_for('static', filename='/blockly/javascript_compressed.js') }}"></script>
 	<script src="{{ url_for('static', filename='/blockly/customblock.js') }}"></script>
 	<script src="{{ url_for('static', filename='/blockly/msg/js/en.js') }}"></script>
-  <script src="{{ url_for('static', filename='/tutorial/tutorial.js') }}"></script>
+	<script src="{{ url_for('static', filename='/tutorial/tutorial.js') }}"></script>
 	
     {% if title %}
         <title>Project RoboCar - {{ title }}</title>
@@ -38,9 +38,9 @@
         <div class="container">
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="/">Dashboard</a>
+			  <a class="nav-item nav-link" href="/">Tutorials</a>
               <a class="nav-item nav-link" href="/logs">Logs</a>
-			  <a class="nav-item nav-link" href="/tutorials">Tutorials</a>
+			  <a class="nav-item nav-link" href="/dashboard">Dashboard</a>
 			  <a class="nav-item nav-link" href="/configuration">Configurations</a>
             </div>
           </div>
