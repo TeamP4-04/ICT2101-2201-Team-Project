@@ -2,22 +2,57 @@
 {% block content %}
 <div class="row">
 	   <div class="col-lg">   
-			   <h2>Lesson Plan</a></h2>
-			   <br>
-			   <div class="col-lg">
-				   <!-- To be replaced by foreach from Database -->
-				   {% for row in rows %}
-				   <article class="media content-section">
-					   <div class="media-body">
-						   <h3><a class="article-title" href="/tutorial/{{row['tutorialID']}}">Tutorial {{row["tutorialID"]}} : {{row["tutorialName"]}}</a></h3>
-						   <p class="article-content">
-							   {{row["tutorialOverview"]}}… 
-						   </p>
-						   <a href="/tutorial/{{row['tutorialID']}}"><button type="button" class="btn btn-primary"  style="float: right;">Start</button></a>
-					   </div>	
-				   </article>
-				   {% endfor %}
-			   </div>
+			<h2>Lesson Plan</a></h2>
+			<br>
+			<!-- script for popup on page load -->
+			<script type="text/javascript">
+
+				// $(window).on('load', function() {
+				// 	$('#myModal').modal('show');
+				// });
+
+				$(document).ready(function(){
+	
+					if (sessionStorage.getItem('#myModal') !== true) {
+						$('#myModal').modal('show');
+
+						// JavaScript code that calls popup only 1st visit of every session
+						sessionStorage.setItem('#myModal', 'true');
+					}
+				});
+				
+				</script>
+			
+			<!-- Bootstrap Modal Markup -->
+			<div id="myModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Welcome to the RoboCar web portal!</h5>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<p>Do you want to start the Tutorial?</p>
+							<a href="/dashboard"><button type="button" class="btn btn-light"  style="float: left;">Skip Tutorial</button></a>
+							<a href="/tutorial/1"><button type="button" class="btn btn-primary"  style="float: right;">Start</button></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg">
+				<!-- To be replaced by foreach from Database -->
+				{% for row in rows %}
+				<article class="media content-section">
+					<div class="media-body">
+						<h3><a class="article-title" href="/tutorial/{{row['tutorialID']}}">Tutorial {{row["tutorialID"]}} : {{row["tutorialName"]}}</a></h3>
+						<p class="article-content">
+							{{row["tutorialOverview"]}}… 
+						</p>
+						<a href="/tutorial/{{row['tutorialID']}}"><button type="button" class="btn btn-primary"  style="float: right;">Start</button></a>
+					</div>	
+				</article>
+				{% endfor %}
+			</div>
 	   </div>
 </div>
 {% endblock content %}
