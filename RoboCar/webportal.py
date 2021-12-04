@@ -1,21 +1,44 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, jsonify
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField
 import sqlite3 as sql
 import tutorial as tut
+import serial
 
 app = Flask(__name__)
 
+msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
+
+#read data from msp432
+
+my_val = 'initial'
+
+@app.route('/update_mspvalues', methods = ["POST"])
+def readData():
+    reading = True
+    my_val = ''
+    myString = []
+    while reading:
+        x = msp432.read()
+        decodedx = x.decode()
+        if decodedx != '/':
+            myString.append(decodedx)
+        else:
+            my_val = ''.join(myString)
+            #print(my_val)
+            myString = []
+            reading = False
+    return jsonify('',render_template('mspvalue.html', mspval = my_val))
 
 @app.route("/dashboard", methods=["POST", "GET"])
 def home():
-    conn=sql.connect("test.db")
+    conn=sql.connect("./robocar/test.db")
     conn.row_factory = sql.Row
     cur=conn.cursor()
     cur.execute("select distance_travelled, rotation, acceleration, obstacle_distance from CarInformation where carInformationID = abs(random()) % (3 - 1) + 1")
     row=cur.fetchone()
     if request.method == "POST":
-        connInsert=sql.connect("test.db")
+        connInsert=sql.connect("./robocar/test.db")
         connInsert.row_factory = sql.Row
         curInsert=connInsert.cursor()
         
@@ -28,13 +51,13 @@ def home():
         return render_template('main.html', title='Main', row = row)
     else:  
         conn.close()    
-        return render_template('main.html', title='Main', row = row)
+        return render_template('main.html', title='Main', row = row, mspval = my_val)
 
 
 
 @app.route("/logs")
 def logs():
-    conn=sql.connect("test.db")
+    conn=sql.connect("./robocar/test.db")
     conn.row_factory = sql.Row
 
     cur=conn.cursor()
@@ -47,7 +70,7 @@ def logs():
 
 @app.route("/logs/log<logID>")
 def logdetails(logID):
-    conn=sql.connect("test.db")
+    conn=sql.connect("./robocar/test.db")
     conn.row_factory = sql.Row
 
     cur=conn.cursor()
@@ -61,7 +84,7 @@ def logdetails(logID):
 # Main Tutorial Page
 @app.route("/")
 def tutorials():
-    conn = sql.connect("test.db")
+    conn = sql.connect("./robocar/test.db")
     conn.row_factory = sql.Row
 
     cur = conn.cursor()
@@ -74,7 +97,7 @@ def tutorials():
 # Individual Tutorial Page
 @app.route("/tutorial/<tutorialID>")
 def tutorialdetails(tutorialID):
-    conn = sql.connect("test.db")
+    conn = sql.connect("./robocar/test.db")
     conn.row_factory = sql.Row
 
     cur = conn.cursor()

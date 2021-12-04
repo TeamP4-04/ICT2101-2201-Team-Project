@@ -37,3 +37,15 @@ void initUARTUSB(void){
 
     printf("communication initialised\n");
 }
+
+void sendBytes(volatile char arrays[]){
+
+    int len = strlen(arrays);
+    int i = 0;
+
+    for(i = 0; i < len ; i++ ){
+        MAP_UART_transmitData(EUSCI_A0_BASE, arrays[i]);
+    }
+    MAP_UART_transmitData(EUSCI_A0_BASE, '/');
+
+}

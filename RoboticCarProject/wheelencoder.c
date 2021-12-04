@@ -1,4 +1,6 @@
 #include "header/wheelencode.h"
+#include "header/UARTusb.h"
+volatile char leftval[10];
 
 // Initialize Wheel Encoder
 void initWheelEncoder(void)
@@ -71,6 +73,13 @@ void TA2_0_IRQHandler(void)
         printf("RIGHT WHEEL RPM   : %.1f RPM \n", right_rotation_per_min);
         printf("RIGHT WHEEL SPEED : %.1f m/Min \n", right_speed);
         
+        //sending the data to the web portal
+        sprintf(leftval, "%.1f", left_rotation_per_min);
+        sendBytes(leftval);
+
+//        sprintf(leftval, "%.1f", left_speed);
+//        sendBytes(leftval);
+
         left_notch_counter = 0;
         right_notch_counter = 0;
 

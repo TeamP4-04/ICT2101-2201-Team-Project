@@ -1,5 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
+<script>
+$(function(){
+	window.setInterval(function(){
+		loadmspVal()
+	},1000)
+
+function loadmspVal(){
+	$.ajax({
+		url:"/update_mspvalues",
+		type: "POST",
+		dataType:"json",
+		success: function(data){
+			$(msp_val).replaceWith(data)
+		}
+
+		});
+	}
+});
+
+</script>
       <div class="row">	
 		<div class="col-sm" id="blocklyDiv" style="height: 480px; width: 600px;"> 
 			<xml id="toolbox" style="display: none">	
@@ -80,10 +100,11 @@
 				<p class='noselect'>{{row["obstacle_distance"]}}</p>
 			  </div>
 			</div>
-			<div class="col">
+			<div class="col" id="msp_val">
 			  <div class="content-section fixed">
 				<h6>Acceleration</h6>
-				<p class='noselect'>{{row["acceleration"]}}</p>
+				<!-- <p class='noselect'>{{row["acceleration"]}}</p> -->
+				<p class='noselect'>{{mspval}}</p>
 			  </div>
 			</div>
 			<div class="col">
