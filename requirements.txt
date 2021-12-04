@@ -11,8 +11,6 @@ dl==0.1.0
 docopt==0.6.2
 docutils==0.18
 Flask==2.0.2
-Flask-SQLAlchemy==2.5.1
-Flask-WTF==1.0.0
 greenlet==1.1.2
 HTMLParser==0.0.2
 idna==3.3
@@ -38,13 +36,11 @@ pytest==6.2.5
 requests==2.26.0
 simplejson==3.17.6
 six==1.16.0
-SQLAlchemy==1.4.27
 toml==0.10.2
 tornado==6.1
 typing_extensions==4.0.0
 unicodedata2==13.0.0.post2
 urllib3==1.26.7
 Werkzeug==2.0.2
-WTForms==3.0.0
 yarg==0.1.9
 zipp==3.6.0

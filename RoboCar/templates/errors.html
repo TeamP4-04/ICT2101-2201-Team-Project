@@ -1,0 +1,7 @@
+ {% extends "layout.html" %}
+ {% block content %}
+	{% if e %}
+        <script> alert("Failed to connect to the Database!") </script>	
+	{% endif %}
+	<h2>Error has occurred...</h2>
+ {% endblock content %}

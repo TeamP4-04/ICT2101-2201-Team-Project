@@ -1,89 +1,145 @@
-from flask import Flask, render_template, url_for, request
-from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField
+from flask import Flask, render_template, url_for, request, redirect
 import sqlite3 as sql
 import tutorial as tut
+import jinja2
 
 app = Flask(__name__)
 
-
 @app.route("/dashboard", methods=["POST", "GET"])
-def home():
-    conn=sql.connect("test.db")
-    conn.row_factory = sql.Row
-    cur=conn.cursor()
-    cur.execute("select distance_travelled, rotation, acceleration, obstacle_distance from CarInformation where carInformationID = abs(random()) % (3 - 1) + 1")
-    row=cur.fetchone()
-    if request.method == "POST":
-        connInsert=sql.connect("test.db")
-        connInsert.row_factory = sql.Row
-        curInsert=connInsert.cursor()
+def dashboard():
+    try:
+        conn=sql.connect('file:test.db?mode=rw', uri=True)
+        conn.row_factory = sql.Row
+        cur=conn.cursor()
+        cur.execute("select distance_travelled, rotation, acceleration, obstacle_distance from CarInformation where carInformationID = abs(random()) % (3 - 1) + 1")
+        row=cur.fetchone()
         
-        commands = request.get_data()
-        commands = commands.decode()
-        curInsert.execute("insert into Logs (stageID, commands) values (?, ?)", (1, commands))
-        connInsert.commit()
-        connInsert.close()
-        conn.close()
-        return render_template('main.html', title='Main', row = row)
-    else:  
-        conn.close()    
-        return render_template('main.html', title='Main', row = row)
-
-
-
+        if request.method == "POST":
+            commands = request.get_data()
+            commands = commands.decode()
+        
+            try:
+                connInsert=sql.connect('file:test.db?mode=rw', uri=True)
+                connInsert.row_factory = sql.Row
+                curInsert=connInsert.cursor()
+                    
+                curInsert.execute("insert into Log (stageID, commands) values (?, ?)", (1, commands))
+                connInsert.commit()
+                connInsert.close()
+                conn.close()
+                return render_template('main.html', title='Dashboard', row = row)
+                
+            except sql.Error as e:     
+                conn.close()
+                print(e)
+                return render_template('main.html', title='Dashboard', row = row)
+   
+        else:  
+            conn.close()    
+            return render_template('main.html', title='Dashboard', row = row)
+        
+    except (sql.Error, jinja2.TemplateError) as e:
+        return render_template('errors.html', title='Error', e=e)
+    
+    return render_template('errors.html', title='Error')
+  
+    
 @app.route("/logs")
 def logs():
-    conn=sql.connect("test.db")
-    conn.row_factory = sql.Row
+    try:
+        conn=sql.connect('file:test.db?mode=rw', uri=True)
+        conn.row_factory = sql.Row
 
-    cur=conn.cursor()
-    cur.execute("select logID from Logs order by logID DESC")
+        cur=conn.cursor()
+        cur.execute("select logID from Logs order by logID DESC")
 
-    rows=cur.fetchall()
-    conn.close()
-    return render_template('logs.html', title='Logs', rows = rows)
+        rows=cur.fetchall()
+        conn.close()
+        return render_template('logs.html', title='Logs', rows = rows)
+        
+    except (sql.Error, jinja2.TemplateError) as e:
+        return render_template('errors.html', title='Error', e=e)
 
 
 @app.route("/logs/log<logID>")
 def logdetails(logID):
-    conn=sql.connect("test.db")
-    conn.row_factory = sql.Row
+    try:
+        conn=sql.connect('file:test.db?mode=rw', uri=True)
+        conn.row_factory = sql.Row
 
-    cur=conn.cursor()
-    cur.execute("select logID, commands, stageID, distance_travelled, rotation, obstacle_distance, time_spent from Logs, CarInformation where carInformationID = abs(random()) % (3 - 1) + 1 and logID = ?", (logID))
+        cur=conn.cursor()
+        cur.execute("select logID, commands, stageID, distance_travelled, rotation, obstacle_distance, time_spent from Logs, CarInformation where carInformationID = abs(random()) % (3 - 1) + 1 and logID = ?", [logID])
 
-    rows=cur.fetchall()
-    conn.close()
-    return render_template('log1.html', title='Logs' + logID, rows = rows)
+        rows=cur.fetchall()
+        conn.close()
+        return render_template('log1.html', title='Logs' + logID, rows = rows)
 
+    except (sql.Error, jinja2.TemplateError) as e:
+        return render_template('errors.html', title='Error', e=e)
 
 # Main Tutorial Page
 @app.route("/")
 def tutorials():
-    conn = sql.connect("test.db")
-    conn.row_factory = sql.Row
+    try:
+        conn = sql.connect('file:test.db?mode=rw', uri=True)
+        conn.row_factory = sql.Row
 
-    cur = conn.cursor()
-    cur.execute("select * from Tutorial order by tutorialID")
+        cur = conn.cursor()
+        cur.execute("select * from Tutorial order by tutorialID")
 
-    rows = cur.fetchall()
-    conn.close()
-    return render_template('tutorials.html', title='Tutorials', rows=rows)
+        rows = cur.fetchall()
+        conn.close()
+        return render_template('tutorials.html', title='Tutorials', rows=rows)
+        
+    except (sql.Error, jinja2.TemplateError) as e:
+        return render_template('errors.html', title='Error', e=e)
 
 # Individual Tutorial Page
 @app.route("/tutorial/<tutorialID>")
 def tutorialdetails(tutorialID):
-    conn = sql.connect("test.db")
-    conn.row_factory = sql.Row
+    try:
+        conn = sql.connect('file:test.db?mode=rw', uri=True)
+        conn.row_factory = sql.Row
 
-    cur = conn.cursor()
-    cur.execute("select * from Tutorial where tutorialID = ?", tutorialID)
-    rows = cur.fetchall()
-    cur.execute("SELECT * FROM Tutorial WHERE tutorialID=(SELECT max(tutorialID) FROM Tutorial)")
-    last_id = cur.fetchone()
-    conn.close()
-    return render_template('tutorial1.html', title='Tutorial ' + tutorialID, rows=rows, last_id=last_id)
+        cur = conn.cursor()
+        cur.execute("select * from Tutorial where tutorialID = ?", tutorialID)
+        rows = cur.fetchall()
+        cur.execute("SELECT * FROM Tutorial WHERE tutorialID=(SELECT max(tutorialID) FROM Tutorial)")
+        last_id = cur.fetchone()
+        conn.close()
+        return render_template('tutorial1.html', title='Tutorial ' + tutorialID, rows=rows, last_id=last_id)
+        
+    except (sql.Error, jinja2.TemplateError) as e:
+        return render_template('errors.html', title='Error', e=e)
+
+# Configuration Page
+@app.route("/configuration", methods=["POST", "GET"])
+def configuration():
+    if request.method == "POST":
+        form = request.form
+        maxSpd = form.get("max")
+        rotSpd = form.get("rot")
+        obsDist = form.get("obs")
+   
+        if not maxSpd and not rotSpd and not obsDist:
+            return render_template('configuration.html', title='Configuration', validate = 1)
+        elif float(maxSpd) > 50 or float(rotSpd) > 50:
+            return render_template('configuration.html', title='Configuration', validate = 2)
+        else:
+            try:
+                connInsert=sql.connect('file:test.db?mode=rw', uri=True)
+                connInsert.row_factory = sql.Row
+                curInsert=connInsert.cursor()
+               
+                curInsert.execute("insert into Configuration (max_speed, rotation_speed, object_detection_range) values (?, ?, ?)", (maxSpd,rotSpd,obsDist))
+                connInsert.commit()
+                connInsert.close()
+                return render_template('configuration.html', title='Configuration')
+                
+            except (sql.Error, jinja2.TemplateError) as e:
+                return render_template('errors.html', title='Error', e=e)
+        
+    return render_template('configuration.html', title='Configuration')
 
 
 if __name__ == '__main__':
