@@ -3,7 +3,7 @@
 #ifndef MAIN_HEADER_H
 #define MAIN_HEADER_H
 
-#define MIN_DISTANCE    8.0f
+#define MIN_DISTANCE    15.0f
 
 #define TRANSAUTO       'u'
 #define TRANSMANUAL     'm'
