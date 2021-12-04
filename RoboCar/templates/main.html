@@ -102,7 +102,12 @@
 				
 				function run(){
 					var code = Blockly.JavaScript.workspaceToCode(workspace);
-					$.post("/dashboard", code);		
+					if (code){
+						$.post("/dashboard", code);	
+					}
+					else {
+						alert("Invalid Commands");
+					}	
 				}			
 
 				var minutesLabel = document.getElementById("minutes");
