@@ -1,4 +1,5 @@
 #include "header/UARTusb.h"
+#include "header/util.h"
 
 const eUSCI_UART_ConfigV1 uartConfig =
 {
@@ -47,5 +48,7 @@ void sendBytes(volatile char arrays[]){
         MAP_UART_transmitData(EUSCI_A0_BASE, arrays[i]);
     }
     MAP_UART_transmitData(EUSCI_A0_BASE, '/');
+
+
 
 }

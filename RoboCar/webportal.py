@@ -10,8 +10,7 @@ app = Flask(__name__)
 msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
 
 #read data from msp432
-
-my_val = 'initial'
+my_val = 'initial range'
 
 @app.route('/update_mspvalues', methods = ["POST"])
 def readData():
@@ -48,7 +47,7 @@ def home():
         connInsert.commit()
         connInsert.close()
         conn.close()
-        return render_template('main.html', title='Main', row = row)
+        return render_template('main.html', title='Main', row = row, mspval = my_val)
     else:  
         conn.close()    
         return render_template('main.html', title='Main', row = row, mspval = my_val)

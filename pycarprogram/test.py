@@ -24,6 +24,9 @@ def readData():
 
 while True:
 
-    print("Left wheel rpm is: " + readData())
-    print("Left wheel speed is: " + readData())
+    #print("Left wheel rpm is: " + readData())
+    print("Object distance is: " + readData())
+    #print("Left wheel rpm is: " + readData())
+    # print("Left wheel speed is: " + readData())
+    
 

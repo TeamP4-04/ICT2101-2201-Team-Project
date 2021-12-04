@@ -4,7 +4,7 @@
 $(function(){
 	window.setInterval(function(){
 		loadmspVal()
-	},1000)
+	},10)
 
 function loadmspVal(){
 	$.ajax({
@@ -94,17 +94,16 @@ function loadmspVal(){
 				<p class='noselect'>{{row["rotation"]}}</p>
 			  </div>
 			</div>
-			<div class="col">
-			  <div class="content-section fixed">
-				<h6>Obstacle Distance</h6>
-				<p class='noselect'>{{row["obstacle_distance"]}}</p>
-			  </div>
-			</div>
 			<div class="col" id="msp_val">
 			  <div class="content-section fixed">
-				<h6>Acceleration</h6>
-				<!-- <p class='noselect'>{{row["acceleration"]}}</p> -->
+				<h6>Obstacle Distance</h6>
 				<p class='noselect'>{{mspval}}</p>
+			  </div>
+			</div>
+			<div class="col">
+			  <div class="content-section fixed">
+				<h6>Acceleration</h6>
+				<p class='noselect'>{{row["acceleration"]}}</p>
 			  </div>
 			</div>
 			<div class="col">

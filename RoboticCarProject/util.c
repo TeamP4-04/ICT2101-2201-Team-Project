@@ -1,6 +1,7 @@
 #include "header/util.h"
 #include "header/main.h"
 #include "header/motordriver.h"
+#include <time.h>
 
 /*Delay function*/
 void Delay(uint32_t loop)
@@ -8,6 +9,7 @@ void Delay(uint32_t loop)
     volatile uint32_t i;
     for (i = 0 ; i < loop ; i++);
 }
+
 
 void setCarMvtSate(char movementState)
 {
