@@ -43,7 +43,7 @@ def dashboard():
                 connInsert.row_factory = sql.Row
                 curInsert=connInsert.cursor()
                     
-                curInsert.execute("insert into Log (stageID, commands) values (?, ?)", (1, commands))
+                curInsert.execute("insert into Logs (stageID, commands) values (?, ?)", (1, commands))
                 connInsert.commit()
                 connInsert.close()
                 conn.close()

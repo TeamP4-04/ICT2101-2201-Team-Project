@@ -126,6 +126,7 @@ function loadmspVal(){
 					var code = Blockly.JavaScript.workspaceToCode(workspace);
 					if (code){
 						$.post("/dashboard", code);	
+						alert("Commands sent successfully!");
 					}
 					else {
 						alert("Invalid Commands");
