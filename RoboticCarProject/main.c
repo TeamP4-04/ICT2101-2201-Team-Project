@@ -24,6 +24,8 @@ volatile uint32_t time_counter = 0;
 volatile uint32_t timer_status = 0;
 volatile uint32_t left_notch_counter = 0;
 volatile uint32_t right_notch_counter = 0;
+volatile float object_distance = 0;
+char myArr[20];
 
 int main(void)
 {
@@ -50,14 +52,16 @@ int main(void)
     while (1)
     {
         /* CHECK IF PATH INFRONT CAR IS CLEAR OR NOT*/
-        if ((getHCSR04Distance() < MIN_DISTANCE)){
+        object_distance = getHCSR04Distance();
+        if ((object_distance < MIN_DISTANCE)){
             carState = STATE_BLOCKED;
         }
         else {
             carState = STATE_CLEAR;
         }
-        printf("the car state is : %d\n", carState);
-        printObjectDistance();
+        //printf("the car state is : %d\n", carState);
+        //printObjectDistance();
+
 
 
         /*IF TRANSMISSION IS MANUAL, GO TO SLEEP AND WAIT FOR INTERRUPTS, ELSE IF AUTO, USE ULTRASONIC AND LINESENSOR*/

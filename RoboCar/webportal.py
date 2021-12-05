@@ -2,7 +2,9 @@ from flask import Flask, render_template, url_for, request, redirect
 import sqlite3 as sql
 import tutorial as tut
 import jinja2
+import serial
 
+msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
 app = Flask(__name__)
 
 @app.route("/dashboard", methods=["POST", "GET"])
@@ -27,16 +29,15 @@ def dashboard():
                 connInsert.commit()
                 connInsert.close()
                 conn.close()
-                return render_template('main.html', title='Dashboard', row = row)
+                return render_template('main.html', title='Dashboard', row = row, mspval = my_val)
                 
             except sql.Error as e:     
                 conn.close()
                 print(e)
-                return render_template('main.html', title='Dashboard', row = row)
-   
+                return render_template('main.html', title='Dashboard', row = row, mspval = my_val)
         else:  
             conn.close()    
-            return render_template('main.html', title='Dashboard', row = row)
+            return render_template('main.html', title='Dashboard', row = row, mspval = my_val)
         
     except (sql.Error, jinja2.TemplateError) as e:
         return render_template('errors.html', title='Error', e=e)
@@ -49,7 +50,6 @@ def logs():
     try:
         conn=sql.connect('file:test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
-
         cur=conn.cursor()
         cur.execute("select logID from Logs order by logID DESC")
 
@@ -66,7 +66,6 @@ def logdetails(logID):
     try:
         conn=sql.connect('file:test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
-
         cur=conn.cursor()
         cur.execute("select logID, commands, stageID, distance_travelled, rotation, obstacle_distance, time_spent from Logs, CarInformation where carInformationID = abs(random()) % (3 - 1) + 1 and logID = ?", [logID])
 
@@ -140,7 +139,7 @@ def configuration():
                 return render_template('errors.html', title='Error', e=e)
         
     return render_template('configuration.html', title='Configuration')
-
+  
 
 if __name__ == '__main__':
     app.run(debug=True)

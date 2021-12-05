@@ -1,5 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
+<script>
+$(function(){
+	window.setInterval(function(){
+		loadmspVal()
+	},10)
+
+function loadmspVal(){
+	$.ajax({
+		url:"/update_mspvalues",
+		type: "POST",
+		dataType:"json",
+		success: function(data){
+			$(msp_val).replaceWith(data)
+		}
+
+		});
+	}
+});
+
+</script>
       <div class="row">	
 		<div class="col-sm" id="blocklyDiv" style="height: 480px; width: 600px;"> 
 			<xml id="toolbox" style="display: none">	
@@ -63,31 +83,36 @@
 			</div>
 			<div class="row">
 			 <div class="col">
-			  <div class="content-section fixed">
+			  <div class="stats-section fixed">
 				<h6>Distance Travelled</h6>
 				<p class='noselect'>{{row["distance_travelled"]}}</p> 
 			  </div>
 			</div>
 			<div class="col">
-			  <div class="content-section fixed">
+			  <div class="stats-section fixed">
 				<h6>Rotation</h6>
 				<p class='noselect'>{{row["rotation"]}}</p>
 			  </div>
 			</div>
+<<<<<<< HEAD
 			<div class="col">
+			  <div class="stats-section fixed">
+=======
+			<div class="col" id="msp_val">
 			  <div class="content-section fixed">
+>>>>>>> 08c77e2c247a7b8bc69cfbd310dcead76238d53d
 				<h6>Obstacle Distance</h6>
-				<p class='noselect'>{{row["obstacle_distance"]}}</p>
+				<p class='noselect'>{{mspval}}</p>
 			  </div>
 			</div>
 			<div class="col">
-			  <div class="content-section fixed">
+			  <div class="stats-section fixed">
 				<h6>Acceleration</h6>
 				<p class='noselect'>{{row["acceleration"]}}</p>
 			  </div>
 			</div>
 			<div class="col">
-			  <div class="content-section fixed">
+			  <div class="stats-section fixed">
 				<h6>Time Spent</h6>
 				<p class='noselect'><label id="minutes">00</label>:<label id="seconds">00</label></p>
 			  </div>

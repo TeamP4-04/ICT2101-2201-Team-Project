@@ -21,6 +21,7 @@
 
 int stateCounter ;
 extern volatile char mvtState;
+extern volatile float object_distance;
 
 void EUSCIA0_IRQHandler(void);
 
