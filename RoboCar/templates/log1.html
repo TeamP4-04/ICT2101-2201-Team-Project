@@ -41,6 +41,13 @@
   {% endfor %}
 
   <a href = "/logs" class="back">Back to logs</a>
-  <a href = "/dashboard" class = "resume">Resume Game</a>
+  <!-- <a href = "/dashboard" class = "resume">Resume Game</a> -->
+  <button onclick="myFunction()"  class="resume">Resume Game</button>
+  <script>
+    function myFunction() {
+      document.location.href = '/dashboard'
+      alert("Game Loaded!")
+    }
+  </script>
 </body>
  {% endblock content %}
