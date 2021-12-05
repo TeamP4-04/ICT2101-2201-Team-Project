@@ -7,18 +7,19 @@
 			<!-- script for popup on page load -->
 			<script type="text/javascript">
 
-				// $(window).on('load', function() {
-				// 	$('#myModal').modal('show');
-				// });
-
+				/* --- SKIP TUTORIAL MODAL --- */
 				$(document).ready(function(){
 	
-					if (sessionStorage.getItem('#myModal') !== true) {
+					if (sessionStorage.getItem('#myModal') !== 'true') {
+						$("#myModal").delay(2000).fadeIn();
 						$('#myModal').modal('show');
-
 						// JavaScript code that calls popup only 1st visit of every session
 						sessionStorage.setItem('#myModal', 'true');
 					}
+					// $j('#popup-close, #myModal').click(function() // You are clicking the close button
+					// {
+					// 	$j('#myModal').fadeOut(); // Now the pop up is hidden.
+					// });
 				});
 				
 				</script>
@@ -33,7 +34,7 @@
 						</div>
 						<div class="modal-body">
 							<p>Do you want to start the Tutorial?</p>
-							<a href="/dashboard"><button type="button" class="btn btn-light"  style="float: left;">Skip Tutorial</button></a>
+							<a href="/dashboard"><button id="popup-close" type="button" class="btn btn-light"  style="float: left;">Skip Tutorial</button></a>
 							<a href="/tutorial/1"><button type="button" class="btn btn-primary"  style="float: right;">Start</button></a>
 						</div>
 					</div>
