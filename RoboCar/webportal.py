@@ -54,7 +54,26 @@ def dashboard():
                 print(e)
                 return render_template('main.html', title='Dashboard', row = row, mspval = my_val)
         else:  
-            conn.close()    
+            conn.close()  
+
+            distance_travelled = request.args.get("distance_travelled")
+            rotation = request.args.get("rotation")
+            obstacle_distance = request.args.get("obstacle_distance")
+
+            car_data = {
+                "distance_travelled": distance_travelled,
+                "rotation": rotation,
+                "obstacle_distance": obstacle_distance,
+                "acceleration": row["acceleration"]
+            }
+
+            values = {}
+            if car_data["distance_travelled"] is None:
+                values = row
+            else:
+                values = car_data
+
+            return render_template('main.html', title='Dashboard', row = values, mspval = my_val)
             return render_template('main.html', title='Dashboard', row = row, mspval = my_val)
         
     except (sql.Error, jinja2.TemplateError) as e:
