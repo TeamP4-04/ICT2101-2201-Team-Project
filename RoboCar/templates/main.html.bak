@@ -63,31 +63,31 @@
 			</div>
 			<div class="row">
 			 <div class="col">
-			  <div class="stats-section fixed">
+			  <div class="content-section fixed">
 				<h6>Distance Travelled</h6>
 				<p class='noselect'>{{row["distance_travelled"]}}</p> 
 			  </div>
 			</div>
 			<div class="col">
-			  <div class="stats-section fixed">
+			  <div class="content-section fixed">
 				<h6>Rotation</h6>
 				<p class='noselect'>{{row["rotation"]}}</p>
 			  </div>
 			</div>
 			<div class="col">
-			  <div class="stats-section fixed">
+			  <div class="content-section fixed">
 				<h6>Obstacle Distance</h6>
 				<p class='noselect'>{{row["obstacle_distance"]}}</p>
 			  </div>
 			</div>
 			<div class="col">
-			  <div class="stats-section fixed">
+			  <div class="content-section fixed">
 				<h6>Acceleration</h6>
 				<p class='noselect'>{{row["acceleration"]}}</p>
 			  </div>
 			</div>
 			<div class="col">
-			  <div class="stats-section fixed">
+			  <div class="content-section fixed">
 				<h6>Time Spent</h6>
 				<p class='noselect'><label id="minutes">00</label>:<label id="seconds">00</label></p>
 			  </div>
