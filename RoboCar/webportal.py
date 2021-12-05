@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, jsonify
+from flask import Flask, render_template, url_for, request, jsonify
 import sqlite3 as sql
 import tutorial as tut
 import jinja2

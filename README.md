@@ -103,10 +103,10 @@ an embedded video that runs through all the system test cases you have created (
 ### System State Diagram  
 ![image](https://user-images.githubusercontent.com/71871190/144734786-3b748a4b-1544-43e6-b8b9-58ec4a2b57c0.png)  
 
-### Test Case 1:  
+### Use Case 1:  
 ![image](https://user-images.githubusercontent.com/71871190/144734751-9d7988f5-5b00-49ed-b051-8aa50b11eaa5.png)  
 
-### Test Case 2:   
+### Use Case 2:   
 ![image](https://user-images.githubusercontent.com/71871190/144734764-caa23329-0a19-4841-8fa7-df01c1b41257.png)  
 
 ### Embedded Video
@@ -123,11 +123,32 @@ an embedded video that runs through all the system test cases you have created (
 ### One Meaningful Class - Tutorial
 
 ### Test Suite
-
+The following python scripts below are test cases for the test suite:
+1. test_path1.py [test_loadTutorialdetails()]
+2. test_path2.py [test_checkLastTutID()]
+3. test_path3.py [test_existsTutorialID()]
+4. test_path4.py [test_databaseconnection()]
+5. test_path5.py [test_loadAllTutID()]
 
 ### Code Coverage Statistics
-    Explanation
+    Path Coverage was conducted on the Tutorial Class where V(G) = e - n + 2(p) such that:
+    - Edges = 18
+    - Nodes = 17
+    - Components = 2
+    Hence a minimum of 5 paths are needed to have sufficient coverage
 
 ### Instructions on how to run the Test Suite
 
     Embedded Video (1min)
+
+## Reflections
+
+### Kwang Guan Cong
+
+### Leong Kah En
+
+### Tey Shu Juan
+
+### Lim Wei Kai
+
+### Loh Yu Yang
