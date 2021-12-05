@@ -97,6 +97,21 @@ You can create a pull request in Github to merge your branch to master branch
 an embedded video that runs through all the system test cases you have created (and refined) from M2
 ~3 mins long to cover all system tests
 
+### Use Case Diagram  
+![image](https://user-images.githubusercontent.com/71871190/144734776-ac2b5401-ccee-4534-8570-992871c051a2.png)  
+
+### System State Diagram  
+![image](https://user-images.githubusercontent.com/71871190/144734786-3b748a4b-1544-43e6-b8b9-58ec4a2b57c0.png)  
+
+### Test Case 1:  
+![image](https://user-images.githubusercontent.com/71871190/144734751-9d7988f5-5b00-49ed-b051-8aa50b11eaa5.png)  
+
+### Test Case 2:   
+![image](https://user-images.githubusercontent.com/71871190/144734764-caa23329-0a19-4841-8fa7-df01c1b41257.png)  
+
+### Embedded Video
+- to be inserted  
+
 ## Whitebox Testing
 
 - choose one meaningful class to demonstrate your test code. “Meaningful” here means 2 or more interactions with other classes, e.g., a Control class. Please do not use an Entity class.
@@ -104,3 +119,15 @@ an embedded video that runs through all the system test cases you have created (
 - show code coverage statistics for each test case, including an explanation of how you have generated these statistics (whether manual, through a lib, or via the IDE)
 - provide instructions how to run the test suite
 - embed an animated gif or another short video (~1 min) of the test case being ran
+
+### One Meaningful Class - Tutorial
+
+### Test Suite
+
+
+### Code Coverage Statistics
+    Explanation
+
+### Instructions on how to run the Test Suite
+
+    Embedded Video (1min)
