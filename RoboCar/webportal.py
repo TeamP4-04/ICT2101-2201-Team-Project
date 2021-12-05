@@ -134,7 +134,7 @@ def configuration():
                 curInsert.execute("insert into Configuration (max_speed, rotation_speed, object_detection_range) values (?, ?, ?)", (maxSpd,rotSpd,obsDist))
                 connInsert.commit()
                 connInsert.close()
-                return render_template('configuration.html', title='Configuration')
+                return render_template('configuration.html', title='Configuration', validate = 3)
                 
             except (sql.Error, jinja2.TemplateError) as e:
                 return render_template('errors.html', title='Error', e=e)
