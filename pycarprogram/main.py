@@ -10,6 +10,12 @@ window.title("MSP432 - CAR CTRL")
 opened = True
 msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
 
+FORWARD = b'w'
+LEFT = b'a'
+STOP = b's'
+RIGHT = b'd'
+REVERSE = 'r'
+
 mvt_label = tk.Label(window)
 transm_label = tk.Label(window)
 eng_status = tk.Label(window)
@@ -164,28 +170,26 @@ def decrease_power():
         increase_power_button['state'] = NORMAL
         decrease_power_button['state'] = DISABLED
 
+def sendData(bytedata,duration):
+    msp432.write(bytedata)
+    time.sleep(duration)
+
 def preCommand():
     #FORWARD, LEFT, RIGHT, REVERSE, FORWARD, STOP
-    msp432.write(b'w')
-    time.sleep(1)
-    msp432.write(b's')
-    time.sleep(1)
-    msp432.write(b'a')
-    time.sleep(1.8)
-    msp432.write(b's')
-    time.sleep(1)
-    msp432.write(b'd')
-    time.sleep(1.8)
-    msp432.write(b's')
-    time.sleep(1)
-    msp432.write(b'r')
-    time.sleep(1)
-    msp432.write(b's')
-    time.sleep(1)
-    msp432.write(b'w')
-    time.sleep(1)
-    msp432.write(b's')
-    time.sleep(1)
+    sendData(FORWARD,1)
+    sendData(STOP,1)
+
+    sendData(LEFT,1.8)
+    sendData(STOP,1)
+
+    sendData(RIGHT,1.8)
+    sendData(STOP,1)
+
+    sendData(REVERSE,1)
+    sendData(STOP,1)
+    
+    sendData(FORWARD,1)
+    sendData(STOP,1)
 
 def quit():
     print("\n** END OF PROGRAM **")
