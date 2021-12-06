@@ -7,10 +7,12 @@ import time
 
 
 app = Flask(__name__)
+
+#### START OF CAR COMMUNICATION FUNCTIONS ####
+
 my_val = 'Initial Value'
 msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
 
-#### CAR UPDATE FUNCTIONS ####
 @app.route('/update_mspvalues', methods = ["POST"])
 def readData():
     try:
@@ -34,13 +36,14 @@ def readData():
 @app.route('/send_command',methods = ['POST'])
 def sendData():
     bytedata = request.get_data()
-    # print(bytedata)
-    # data = bytes(bytedata, 'utf-8')
     msp432.write(bytedata)
     time.sleep(1)
     msp432.write(b's')
     return ('nothing')
 
+#### END OF CAR COMMUNICATION FUNCTIONS ####
+
+#### START OF WEB PORTAL FUNCTIONS ####
 @app.route("/dashboard", methods=["POST", "GET"])
 def dashboard():
     try:
@@ -78,7 +81,6 @@ def dashboard():
     
     return render_template('errors.html', title='Error')
   
-    
 @app.route("/logs")
 def logs():
     try:
@@ -172,7 +174,8 @@ def configuration():
                 return render_template('errors.html', title='Error', e=e)
         
     return render_template('configuration.html', title='Configuration')
-
+    
+#### END OF WEB PORTAL FUNCTIONS ####
 
 
 if __name__ == '__main__':

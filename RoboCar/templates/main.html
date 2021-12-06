@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
+
+<!-- START OF SCRIPT FOR UPDATING OBSTACLE DISTANCE FROM CAR SENSOR -->
 <script>
 $(function(){
 	window.setInterval(function(){
@@ -19,6 +21,7 @@ async function loadmspVal(){
 	}
 });
 </script>
+<!-- END OF SCRIPT FOR UPDATING OBSTACLE DISTANCE FROM CAR SENSOR -->
 
       <div class="row">	
 		<div class="col-sm" id="blocklyDiv" style="height: 480px; width: 600px;"> 
@@ -98,7 +101,9 @@ async function loadmspVal(){
 			<div class="col" id="msp_val">
 			  <div class="content-section fixed">
 				<h6>Obstacle Distance</h6>
+				<!-- START OF CAR VARIABLE -->
 				<p class='noselect'>{{mspval}}</p>
+				<!-- END OF CAR VARIABLE -->
 				<!-- <p class='noselect'>{{row["obstacle_distance"]}}</p> -->
 			  </div>
 			</div>
@@ -125,10 +130,11 @@ async function loadmspVal(){
 				function run(){
 					var code = Blockly.JavaScript.workspaceToCode(workspace);
 					$.post("/dashboard", code);
-					// workspace = "moveright/moveleft" :: string
-					// console.log(code)
+					
+					//START OF CAR FUNCTION
 					var data = "moveleft";
 					$.post("/send_command", code);
+					//END OF CAR FUNCTION
 				}			
 
 				var minutesLabel = document.getElementById("minutes");
