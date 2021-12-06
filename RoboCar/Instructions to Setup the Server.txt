@@ -1,0 +1,2 @@
+set FLASK_APP=webportal.py
+set FLASK_DEBUG=1
