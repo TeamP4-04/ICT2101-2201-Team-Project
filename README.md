@@ -122,7 +122,7 @@ The following python scripts below are test cases for the test suite:
 4. test_path4.py [test_databaseconnection()]
 5. test_path5.py [test_loadAllTutID()]
   
-They reside in the ```RoboCar folder```  of the repo.  
+They reside in the ```RoboCarWEBPORTAL folder```  of the repo.  
 
 
 ### Code Coverage Statistics
