@@ -6,24 +6,16 @@
 			<br>
 			<!-- script for popup on page load -->
 			<script type="text/javascript">
-
 				/* --- SKIP TUTORIAL MODAL --- */
 				$(document).ready(function(){
-	
 					if (sessionStorage.getItem('#myModal') !== 'true') {
 						$("#myModal").delay(2000).fadeIn();
 						$('#myModal').modal('show');
 						// JavaScript code that calls popup only 1st visit of every session
 						sessionStorage.setItem('#myModal', 'true');
 					}
-					// $j('#popup-close, #myModal').click(function() // You are clicking the close button
-					// {
-					// 	$j('#myModal').fadeOut(); // Now the pop up is hidden.
-					// });
 				});
-				
-				</script>
-			
+				</script>	
 			<!-- Bootstrap Modal Markup -->
 			<div id="myModal" class="modal fade">
 				<div class="modal-dialog">
