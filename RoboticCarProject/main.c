@@ -11,11 +11,13 @@
 #include "header/wheelencode.h"
 #include "header/linesensor.h"
 #include "header/UARTusb.h"
+#include "header/updateTimer.h"
 
 void manualControl();
 void resetCar();
 /*variables modified by ISR must be declared volatile*/
 volatile uint32_t SR04IntTimes = 0;
+volatile uint32_t update_time_counter = 0;
 volatile char carEngine = ENGINE_OFF;
 volatile char carTransM = TRANSMANUAL;
 volatile bool carState = STATE_CLEAR;
@@ -36,6 +38,7 @@ int main(void)
     initWheelEncoder();
     initLineSensor();
     initUARTUSB();
+    initUpdateTimer();
 
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
     GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1);
@@ -53,6 +56,11 @@ int main(void)
     {
         /* CHECK IF PATH INFRONT CAR IS CLEAR OR NOT*/
         object_distance = getHCSR04Distance();
+
+        /*START UPDATE TIMER FOR DATA TO BE SEND*/
+//        Timer_A_clearTimer(TIMER_A3_BASE);
+//        Timer_A_startCounter(TIMER_A3_BASE, TIMER_A_UP_MODE);
+
         if ((object_distance < MIN_DISTANCE)){
             carState = STATE_BLOCKED;
         }
@@ -60,9 +68,7 @@ int main(void)
             carState = STATE_CLEAR;
         }
         //printf("the car state is : %d\n", carState);
-        //printObjectDistance();
-//        sprintf(myArr, "%.1f", object_distance);
-//        sendBytes(myArr);
+        //printf("object dist: %.1f\n", object_distance);
 
         /*IF TRANSMISSION IS MANUAL, GO TO SLEEP AND WAIT FOR INTERRUPTS, ELSE IF AUTO, USE ULTRASONIC AND LINESENSOR*/
         if (carTransM == TRANSMANUAL)
@@ -78,6 +84,24 @@ int main(void)
         }
     }
 }
+
+// TIMER INTERRUPT TO SEND UPDATE EVERY 1s
+void TA3_0_IRQHandler(void)
+{
+    update_time_counter++;
+
+    if( update_time_counter == 1000 ){
+
+        update_time_counter = 0;
+        sprintf(myArr, "%.1f", object_distance);
+        sendBytes(myArr);
+        printf("%.1f\n ", object_distance);
+
+    }
+    /* Clear interrupt flag */
+    Timer_A_clearCaptureCompareInterrupt(TIMER_A3_BASE, TIMER_A_CAPTURECOMPARE_REGISTER_0);
+}
+
 
 void EUSCIA0_IRQHandler(void)
 {
