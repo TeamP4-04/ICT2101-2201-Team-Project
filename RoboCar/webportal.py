@@ -11,39 +11,39 @@ app = Flask(__name__)
 
 #### START OF CAR COMMUNICATION FUNCTIONS ####
 
-my_val = 'Initial Value'
-msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
+# my_val = 'Initial Value'
+# msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
 
-@app.route('/update_mspvalues', methods = ["POST"])
-def readData():
-    try:
-        reading = True
-        my_val = ''
-        myString = []
-        while reading:
-            if (msp432.inWaiting()):
-                x = msp432.read()
-                decodedx = x.decode()
-                if decodedx != '/':
-                    myString.append(decodedx)
-                else:
-                    my_val = ''.join(myString)
-                    #print(my_val)
-                    myString = []
-                    reading = False
-                    return jsonify('',render_template('mspvalue.html', mspval = my_val))
+# @app.route('/update_mspvalues', methods = ["POST"])
+# def readData():
+#     try:
+#         reading = True
+#         my_val = ''
+#         myString = []
+#         while reading:
+#             if (msp432.inWaiting()):
+#                 x = msp432.read()
+#                 decodedx = x.decode()
+#                 if decodedx != '/':
+#                     myString.append(decodedx)
+#                 else:
+#                     my_val = ''.join(myString)
+#                     #print(my_val)
+#                     myString = []
+#                     reading = False
+#                     return jsonify('',render_template('mspvalue.html', mspval = my_val))
         
-    except Exception as e:
-        my_val = 'Error Reading Data'
-        return jsonify('',render_template('mspvalue.html', mspval = my_val))
+#     except Exception as e:
+#         my_val = 'Error Reading Data'
+#         return jsonify('',render_template('mspvalue.html', mspval = my_val))
 
-@app.route('/send_command',methods = ['POST'])
-def sendData():
-    bytedata = request.get_data()
-    msp432.write(bytedata)
-    time.sleep(1)
-    msp432.write(b's')
-    return ('nothing')
+# @app.route('/send_command',methods = ['POST'])
+# def sendData():
+#     bytedata = request.get_data()
+#     msp432.write(bytedata)
+#     time.sleep(1)
+#     msp432.write(b's')
+#     return ('nothing')
 
 #### END OF CAR COMMUNICATION FUNCTIONS ####
 
