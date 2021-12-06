@@ -73,41 +73,38 @@ or
 4. Merge master branch code to feature branch  
 ```git merge master```
 
-### Once the feature is completed, merge it to master branch:  
+### Once the feature is completed, merge it to dev branch then to master branch:  
 You can create a pull request in Github to merge your branch to master branch  
 
 #### OR
-1. Checkout master branch  
+1. Checkout dev branch  
 ```git checkout master```  
 
-2. Merge your feature branch to master branch  
+2. Merge your feature branch to dev branch  
 ```git merge feature/<featurename>```  
 
-3. Delete local feature branch   
+3. Once every feature is integrated and tested, then it is ready to merge into master branch.  
+4. Checkout master branch  
+```git checkout master```  
+
+- Merge your feature branch to master branch  
+```git merge dev```
+
+5. Delete local feature branch   
 ```git branch -d feature/<featurename>```  
 
-4. Delete remote feature branch  
+6. Delete remote feature branch  
 ```git push origin --delete feature/<featurename>```  
 
 **Note: Best practice to commit your changes regularly**
 
 ## User Acceptance Testing
 
-- include an updated use case diagram and system state diagram if there are changes made based on M2. Highlight the changes clearly.
-an embedded video that runs through all the system test cases you have created (and refined) from M2
-~3 mins long to cover all system tests
-
 ### Use Case Diagram  
 ![image](https://user-images.githubusercontent.com/71871190/144734776-ac2b5401-ccee-4534-8570-992871c051a2.png)  
 
 ### System State Diagram  
 ![image](https://user-images.githubusercontent.com/71871190/144734786-3b748a4b-1544-43e6-b8b9-58ec4a2b57c0.png)  
-
-### Use Case 1:  
-![image](https://user-images.githubusercontent.com/71871190/144734751-9d7988f5-5b00-49ed-b051-8aa50b11eaa5.png)  
-
-### Use Case 2:   
-![image](https://user-images.githubusercontent.com/71871190/144734764-caa23329-0a19-4841-8fa7-df01c1b41257.png)  
 
 ### Embedded Video
 - to be inserted  
