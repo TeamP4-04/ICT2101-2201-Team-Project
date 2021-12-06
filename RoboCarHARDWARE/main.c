@@ -80,7 +80,7 @@ int main(void)
         /*IF TRANSMISSION IS AUTO, ONLY ALLOW MOVEMENT WHEN PATH IS CLEAR*/
         if (carTransM == TRANSAUTO && carState == STATE_CLEAR) {
             trackLine();
-        } else if (carState == STATE_BLOCKED) {
+        } else if (carTransM == TRANSAUTO && carState == STATE_BLOCKED) {
             setCarMvtSate(STOP);
         }
     }
