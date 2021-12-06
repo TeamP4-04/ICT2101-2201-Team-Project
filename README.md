@@ -141,11 +141,14 @@ They reside in the ```RoboCar folder```  of the repo.
 
 
 ### Instructions on how to run the Test Suite
-    1. 
-    2.
+    1. Ensure that Pytest is installed.
+    2. Ensure test scripts are in the same directory as webportal.py.
+    3. Open a command prompt from the same directory.
+    4. Enter "pytest" into the command prompt to run all test scripts.
     
-#### Embedded Video (1min)  
-    
+#### Test Suite Video    
+https://user-images.githubusercontent.com/72189764/144799492-23099a29-fa44-4648-9460-802cdf0a5170.mp4
+
     
 ## Individual Reflections  
 Please go to the ```M3 Individual Reflection Folder``` to access our individual reflections.
