@@ -8,10 +8,10 @@ import threading
 
 
 app = Flask(__name__)
-
+my_val = 'Initial Value'
 #### START OF CAR COMMUNICATION FUNCTIONS ####
 
-# my_val = 'Initial Value'
+
 # msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
 
 # @app.route('/update_mspvalues', methods = ["POST"])
