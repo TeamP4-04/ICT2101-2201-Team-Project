@@ -67,8 +67,9 @@ int main(void)
         else {
             carState = STATE_CLEAR;
         }
+
         //printf("the car state is : %d\n", carState);
-        //printf("object dist: %.1f\n", object_distance);
+        printf("object dist: %.1f\n", object_distance);
 
         /*IF TRANSMISSION IS MANUAL, GO TO SLEEP AND WAIT FOR INTERRUPTS, ELSE IF AUTO, USE ULTRASONIC AND LINESENSOR*/
         if (carTransM == TRANSMANUAL)
