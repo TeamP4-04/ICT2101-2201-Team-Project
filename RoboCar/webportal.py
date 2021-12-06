@@ -3,28 +3,43 @@ import sqlite3 as sql
 import tutorial as tut
 import jinja2
 import serial
+import time
 
-#msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
+
 app = Flask(__name__)
-#my_val = 'Initial Value'
+my_val = 'Initial Value'
+msp432 = serial.Serial('/dev/cu.usbmodemM43210051', 9600)
 
 #### CAR UPDATE FUNCTIONS ####
 @app.route('/update_mspvalues', methods = ["POST"])
 def readData():
-    reading = True
-    my_val = ''
-    myString = []
-    while reading:
-        x = msp432.read()
-        decodedx = x.decode()
-        if decodedx != '/':
-            myString.append(decodedx)
-        else:
-            my_val = ''.join(myString)
-            #print(my_val)
-            myString = []
-            reading = False
-            return jsonify('',render_template('mspvalue.html', mspval = my_val))
+    try:
+        reading = True
+        my_val = ''
+        myString = []
+        while reading:
+            x = msp432.read()
+            decodedx = x.decode()
+            if decodedx != '/':
+                myString.append(decodedx)
+            else:
+                my_val = ''.join(myString)
+                #print(my_val)
+                myString = []
+                reading = False
+                return jsonify('',render_template('mspvalue.html', mspval = my_val))
+    except Exception as e:
+        print("no data")
+
+@app.route('/send_command',methods = ['POST'])
+def sendData():
+    bytedata = request.get_data()
+    # print(bytedata)
+    # data = bytes(bytedata, 'utf-8')
+    msp432.write(bytedata)
+    time.sleep(1)
+    msp432.write(b's')
+    return ('nothing')
 
 @app.route("/dashboard", methods=["POST", "GET"])
 def dashboard():
@@ -157,7 +172,8 @@ def configuration():
                 return render_template('errors.html', title='Error', e=e)
         
     return render_template('configuration.html', title='Configuration')
-  
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -6,7 +6,7 @@ $(function(){
 		loadmspVal()
 	},1000)
 
-function loadmspVal(){
+async function loadmspVal(){
 	$.ajax({
 		url:"/update_mspvalues",
 		type: "POST",
@@ -124,12 +124,11 @@ function loadmspVal(){
 				
 				function run(){
 					var code = Blockly.JavaScript.workspaceToCode(workspace);
-					if (code){
-						$.post("/dashboard", code);	
-					}
-					else {
-						alert("Invalid Commands");
-					}	
+					$.post("/dashboard", code);
+					// workspace = "moveright/moveleft" :: string
+					// console.log(code)
+					var data = "moveleft";
+					$.post("/send_command", code);
 				}			
 
 				var minutesLabel = document.getElementById("minutes");

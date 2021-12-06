@@ -60,7 +60,7 @@ int main(void)
             carState = STATE_CLEAR;
         }
         //printf("the car state is : %d\n", carState);
-        //printObjectDistance();
+        printObjectDistance();
 
 
 
