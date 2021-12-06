@@ -51,7 +51,7 @@ def sendData():
 @app.route("/dashboard", methods=["POST", "GET"])
 def dashboard():
     try:
-        conn=sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn=sql.connect('file:./robocarWEBPORTAL/test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
         cur=conn.cursor()
         cur.execute("select distance_travelled, rotation, acceleration, obstacle_distance from CarInformation where carInformationID = abs(random()) % (3 - 1) + 1")
@@ -62,7 +62,7 @@ def dashboard():
             commands = commands.decode()
         
             try:
-                connInsert=sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+                connInsert=sql.connect('file:./robocarWEBPORTAL/test.db?mode=rw', uri=True)
                 connInsert.row_factory = sql.Row
                 curInsert=connInsert.cursor()
                     
@@ -107,7 +107,7 @@ def dashboard():
 @app.route("/logs")
 def logs():
     try:
-        conn=sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn=sql.connect('file:./robocarWEBPORTAL/test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
         cur=conn.cursor()
         cur.execute("select logID from Logs order by logID DESC")
@@ -123,7 +123,7 @@ def logs():
 @app.route("/logs/log<logID>")
 def logdetails(logID):
     try:
-        conn=sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn=sql.connect('file:./robocarWEBPORTAL/test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
         cur=conn.cursor()
         cur.execute("select logID, commands, stageID, distance_travelled, rotation, obstacle_distance, time_spent from Logs, CarInformation where carInformationID = abs(random()) % (3 - 1) + 1 and logID = ?", [logID])
@@ -139,7 +139,7 @@ def logdetails(logID):
 @app.route("/")
 def tutorials():
     try:
-        conn = sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn = sql.connect('file:./robocarWEBPORTAL/test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
 
         cur = conn.cursor()
@@ -156,7 +156,7 @@ def tutorials():
 @app.route("/tutorial/<tutorialID>")
 def tutorialdetails(tutorialID):
     try:
-        conn = sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn = sql.connect('file:./robocarWEBPORTAL/test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
         cur = conn.cursor()
         cur.execute("select * from Tutorial where tutorialID = ?", tutorialID)
@@ -184,7 +184,7 @@ def configuration():
             return render_template('configuration.html', title='Configuration', validate = 2)
         else:
             try:
-                connInsert=sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+                connInsert=sql.connect('file:./robocarWEBPORTAL/test.db?mode=rw', uri=True)
                 connInsert.row_factory = sql.Row
                 curInsert=connInsert.cursor()
                
