@@ -105,6 +105,7 @@ You can create a pull request in Github to merge your branch to master branch
 
 ### Embedded Video 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/3BZyPw8U0CA/0.jpg)](http://www.youtube.com/watch?v=3BZyPw8U0CA "UAT video")
+
 https://www.youtube.com/watch?v=3BZyPw8U0CA
 
 
