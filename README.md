@@ -3,9 +3,6 @@ This repository aims to deliver the project requirements in SIT ICT Module 2101/
 
 ## How to run
 
-- keep it straight to the point of how to access the entry point of the web app
-any necessary dependencies to run it
-
 ### To run the application on VSCode:
 1. Create a virtual environment  
  ```python -m venv venv```  
@@ -87,7 +84,7 @@ You can create a pull request in Github to merge your branch to master branch
 4. Checkout master branch  
 ```git checkout master```  
 
-- Merge your feature branch to master branch  
+- Merge dev branch to master branch  
 ```git merge dev```
 
 5. Delete local feature branch   
@@ -106,13 +103,14 @@ You can create a pull request in Github to merge your branch to master branch
 ### System State Diagram  
 ![image](https://user-images.githubusercontent.com/71871190/144734786-3b748a4b-1544-43e6-b8b9-58ec4a2b57c0.png)  
 
-### Embedded Video
-- to be inserted  
+### Embedded Video  
+https://www.youtube.com/watch?v=3BZyPw8U0CA
+
 
 ## Whitebox Testing
 
 ### One Meaningful Class 
-  We have decided to choose Tutorial
+  We have decided to choose Tutorial.
 
 ### Test Suite
 The following python scripts below are test cases for the test suite:
@@ -124,9 +122,6 @@ The following python scripts below are test cases for the test suite:
   
 They reside in the ```RoboCar folder```  of the repo.  
 
-#### How do we come up with this test suite:  
-
-
 
 ### Code Coverage Statistics
     Path Coverage was conducted on the Tutorial Class where V(G) = e - n + 2(p) such that:
@@ -134,15 +129,21 @@ They reside in the ```RoboCar folder```  of the repo.
     - Nodes = 17
     - Components = 2
     Hence a minimum of 5 paths are needed to have sufficient coverage.  
-  
-![Path Coverage](https://user-images.githubusercontent.com/71171926/144776528-f7bd133b-a9e3-4dc4-8eda-f8344391e20d.JPG)
+    We have generated these statistics manually.
 
-#### Explanation of how you have generated these statistics (whether manual, through a lib, or via the IDE)
+![image](https://user-images.githubusercontent.com/71871190/144795438-f22a3d2f-b3c8-477b-96fb-7cf3d4df5865.png)  
+
+![image](https://user-images.githubusercontent.com/71871190/144795407-ca3fa431-9b9e-41ef-902b-aa315a0443e8.png)  
+
+![image](https://user-images.githubusercontent.com/71871190/144795475-8e93c8a6-c179-4780-a6fa-604f620a01c1.png)  
 
 
 ### Instructions on how to run the Test Suite
-
-    Embedded Video (1min)
+    1. 
+    2.
     
-## Reflections  
+#### Embedded Video (1min)  
+    
+    
+## Individual Reflections  
 Please go to the ```M3 Individual Reflection Folder``` to access our individual reflections.
