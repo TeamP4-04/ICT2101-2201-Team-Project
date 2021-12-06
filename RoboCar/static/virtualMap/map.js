@@ -66,6 +66,7 @@ class GridSystem {
  			 	gridSystem.#updateMatrix(gridSystem.player.y, gridSystem.player.x + 1, 2);
                 gridSystem.player.x ++;
                 gridSystem.render();
+				
         }
 		else{
 			gridSystem.render();

@@ -61,8 +61,8 @@ int main(void)
         }
         //printf("the car state is : %d\n", carState);
         //printObjectDistance();
-
-
+//        sprintf(myArr, "%.1f", object_distance);
+//        sendBytes(myArr);
 
         /*IF TRANSMISSION IS MANUAL, GO TO SLEEP AND WAIT FOR INTERRUPTS, ELSE IF AUTO, USE ULTRASONIC AND LINESENSOR*/
         if (carTransM == TRANSMANUAL)
