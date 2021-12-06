@@ -117,35 +117,31 @@ You can create a pull request in Github to merge your branch to master branch
 - provide instructions how to run the test suite
 - embed an animated gif or another short video (~1 min) of the test case being ran
 
-### One Meaningful Class - Tutorial
+### One Meaningful Class 
+  We have decided to choose Tutorial
 
 ### Test Suite
 The following python scripts below are test cases for the test suite:
-1. test_path1.py [test_loadTutorialdetails()]
+1. test_path1.py [test_loadTutorialdetails()] (Baseline)
 2. test_path2.py [test_checkLastTutID()]
 3. test_path3.py [test_existsTutorialID()]
 4. test_path4.py [test_databaseconnection()]
 5. test_path5.py [test_loadAllTutID()]
+  
+They reside in (R) of the repo.  
+
+####How do we come up with this test suite:  
 
 ### Code Coverage Statistics
     Path Coverage was conducted on the Tutorial Class where V(G) = e - n + 2(p) such that:
     - Edges = 18
     - Nodes = 17
     - Components = 2
-    Hence a minimum of 5 paths are needed to have sufficient coverage
+    Hence a minimum of 5 paths are needed to have sufficient coverage.  
+    ![image](https://user-images.githubusercontent.com/71171926/144775699-2cf0cae9-5c78-4d07-ae56-be1f186b2d08.png)   
+
+
 
 ### Instructions on how to run the Test Suite
 
     Embedded Video (1min)
-
-## Reflections
-
-### Kwang Guan Cong
-
-### Leong Kah En
-
-### Tey Shu Juan
-
-### Lim Wei Kai
-
-### Loh Yu Yang
