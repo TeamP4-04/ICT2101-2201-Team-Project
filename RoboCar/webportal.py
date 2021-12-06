@@ -4,6 +4,7 @@ import tutorial as tut
 import jinja2
 import serial
 import time
+import threading
 
 
 app = Flask(__name__)
@@ -20,18 +21,21 @@ def readData():
         my_val = ''
         myString = []
         while reading:
-            x = msp432.read()
-            decodedx = x.decode()
-            if decodedx != '/':
-                myString.append(decodedx)
-            else:
-                my_val = ''.join(myString)
-                #print(my_val)
-                myString = []
-                reading = False
-                return jsonify('',render_template('mspvalue.html', mspval = my_val))
+            if (msp432.inWaiting()):
+                x = msp432.read()
+                decodedx = x.decode()
+                if decodedx != '/':
+                    myString.append(decodedx)
+                else:
+                    my_val = ''.join(myString)
+                    #print(my_val)
+                    myString = []
+                    reading = False
+                    return jsonify('',render_template('mspvalue.html', mspval = my_val))
+        
     except Exception as e:
-        print("no data")
+        my_val = 'Error Reading Data'
+        return jsonify('',render_template('mspvalue.html', mspval = my_val))
 
 @app.route('/send_command',methods = ['POST'])
 def sendData():

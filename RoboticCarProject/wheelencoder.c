@@ -71,17 +71,16 @@ void TA2_0_IRQHandler(void)
         float right_speed = (right_rotation_per_min * WHEEL_DIA) / 100;
 
         /*printing values of the wheel encoders*/
-        printf("LEFT  WHEEL RPM   : %.1f RPM \n", left_rotation_per_min);
-        printf("RIGHT WHEEL RPM   : %.1f RPM \n", right_rotation_per_min);
-
-        printf("LEFT  WHEEL SPEED : %.1f m/Min \n", left_speed);
-        printf("RIGHT WHEEL SPEED : %.1f m/Min \n\n", right_speed);
+        printf("LEFT RPM  , RIGHT RPM   : %.1f RPM  , %.1f RPM  \n", left_rotation_per_min, right_rotation_per_min);
+        printf("LEFT SPEED, RIGHT SPEED : %.1f m/Min, %.1f m/Min\n\n", left_speed, right_speed);
         
-        //sending the data to the web portal
+
+//        sending the data to the web portal
 //        sprintf(leftval, "%.1f", left_rotation_per_min);
 //        sendBytes(leftval);
 
         /*sending updates to web portal based on movement*/
+        //printf("Object Distance : %.1f\n\n", object_distance);
         sprintf(myArr, "%.1f", object_distance);
         sendBytes(myArr);
 
