@@ -16,7 +16,7 @@ Blockly.Blocks['moveup'] = {
 
 Blockly.JavaScript['moveup'] = function(block) {
 	gridSystem.moveUp();
-	return 'w';
+	return 'moveUp\n';
 };
 
 /* --- Move Down --- */
@@ -36,7 +36,7 @@ Blockly.Blocks['movedown'] = {
 
 Blockly.JavaScript['movedown'] = function(block) {
 	gridSystem.moveDown();
-	return 'r';
+	return 'moveDown()\n';
 };
 
 /* --- Move Left --- */
@@ -56,8 +56,7 @@ Blockly.Blocks['moveleft'] = {
 
 Blockly.JavaScript['moveleft'] = function(block) {
 	gridSystem.moveLeft();
-	// return 'moveLeft()\n';
-  return 'a';
+	return 'moveLeft()\n';
 };
 
 /* --- Move Right --- */
@@ -77,8 +76,7 @@ Blockly.Blocks['moveright'] = {
 
 Blockly.JavaScript['moveright'] = function(block) {
 	gridSystem.moveRight();
-	// return 'moveRight()\n';
-  return 'd';
+	return 'moveRight()\n';
 };
 
 /* --- Set Speed --- */

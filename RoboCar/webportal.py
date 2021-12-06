@@ -51,7 +51,7 @@ my_val = 'Initial Value'
 @app.route("/dashboard", methods=["POST", "GET"])
 def dashboard():
     try:
-        conn=sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn=sql.connect('file:test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
         cur=conn.cursor()
         cur.execute("select distance_travelled, rotation, acceleration, obstacle_distance from CarInformation where carInformationID = abs(random()) % (3 - 1) + 1")
@@ -62,7 +62,7 @@ def dashboard():
             commands = commands.decode()
         
             try:
-                connInsert=sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+                connInsert=sql.connect('file:test.db?mode=rw', uri=True)
                 connInsert.row_factory = sql.Row
                 curInsert=connInsert.cursor()
                     
@@ -97,7 +97,7 @@ def dashboard():
                 values = car_data
 
             return render_template('main.html', title='Dashboard', row = values, mspval = my_val)
-            return render_template('main.html', title='Dashboard', row = row, mspval = my_val)
+
         
     except (sql.Error, jinja2.TemplateError) as e:
         return render_template('errors.html', title='Error', e=e)
@@ -107,7 +107,7 @@ def dashboard():
 @app.route("/logs")
 def logs():
     try:
-        conn=sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn=sql.connect('file:test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
         cur=conn.cursor()
         cur.execute("select logID from Logs order by logID DESC")
@@ -123,7 +123,7 @@ def logs():
 @app.route("/logs/log<logID>")
 def logdetails(logID):
     try:
-        conn=sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn=sql.connect('file:test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
         cur=conn.cursor()
         cur.execute("select logID, commands, stageID, distance_travelled, rotation, obstacle_distance, time_spent from Logs, CarInformation where carInformationID = abs(random()) % (3 - 1) + 1 and logID = ?", [logID])
@@ -139,7 +139,7 @@ def logdetails(logID):
 @app.route("/")
 def tutorials():
     try:
-        conn = sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn = sql.connect('file:test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
 
         cur = conn.cursor()
@@ -156,7 +156,7 @@ def tutorials():
 @app.route("/tutorial/<tutorialID>")
 def tutorialdetails(tutorialID):
     try:
-        conn = sql.connect('file:./robocar/test.db?mode=rw', uri=True)
+        conn = sql.connect('file:test.db?mode=rw', uri=True)
         conn.row_factory = sql.Row
         cur = conn.cursor()
         cur.execute("select * from Tutorial where tutorialID = ?", tutorialID)
@@ -179,6 +179,8 @@ def configuration():
         obsDist = form.get("obs")
    
         if not maxSpd and not rotSpd and not obsDist:
+            return render_template('configuration.html', title='Configuration', validate = 1)
+        elif not maxSpd or not rotSpd:
             return render_template('configuration.html', title='Configuration', validate = 1)
         elif float(maxSpd) > 50 or float(rotSpd) > 50:
             return render_template('configuration.html', title='Configuration', validate = 2)
