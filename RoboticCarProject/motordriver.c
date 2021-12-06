@@ -54,7 +54,7 @@ void initMotorDriver(){
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
 
 
-    printf("Init-ed the motor\n");
+    printf("Motordriver initialised\n");
 
 };
 
@@ -65,13 +65,13 @@ void goForward(){
     GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN1);
     GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN2);
     //pwmConfigRight.dutyCycle = 1100 * 2.2;
-    pwmConfigRight.dutyCycle = 2400 * 2.2;
+    pwmConfigRight.dutyCycle = 3500 * 2.2;
 
     //Set left motor to move forward at 50%.
     GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN3);
     GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN4);
     //pwmConfigLeft.dutyCycle = 1300 * 2.2;
-    pwmConfigLeft.dutyCycle = 2600 * 2.2;
+    pwmConfigLeft.dutyCycle = 3600 * 2.2;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
@@ -84,12 +84,12 @@ void turnLeft(){
     //Set Right motor to move forward
     GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN1);
     GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN2);
-    pwmConfigRight.dutyCycle = 1300 * 1.7;
+    pwmConfigRight.dutyCycle = 2600 * 1.7;
 
     //Set Left motor to move backward
-    GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN3);
-    GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN4);
-    pwmConfigLeft.dutyCycle = 1100 * 2.7;
+    GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN3);
+    GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN4);
+    pwmConfigLeft.dutyCycle = 0;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
@@ -102,12 +102,12 @@ void turnRight(){
     //Set Left motor to forward at 50%.
     GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN1);
     GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN2);
-    pwmConfigRight.dutyCycle = 800;
+    pwmConfigRight.dutyCycle = 0;
 
     //Set Right motor to move forward at 50%.
-    GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN3);
-    GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN4);
-    pwmConfigLeft.dutyCycle = 1300;
+    GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN3);
+    GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN4);
+    pwmConfigLeft.dutyCycle = 2600 * 1.7;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
@@ -126,6 +126,24 @@ void isStop(){
     GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN3);
     GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN4);
     pwmConfigLeft.dutyCycle = 0;
+
+    Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
+    Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor
+
+};
+
+void isReverse(){
+/*Turn all GPIO to Low */
+
+    //brake right motor and set 0%
+    GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN1);
+    GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN2);
+    pwmConfigRight.dutyCycle = 3500 * 2.2;;
+
+    //brake left motor and set 0%
+    GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN3);
+    GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN4);
+    pwmConfigLeft.dutyCycle = 3400 * 2.2;
 
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigRight); //Right Motor
     Timer_A_generatePWM(TIMER_A0_BASE, &pwmConfigLeft); //Left Motor

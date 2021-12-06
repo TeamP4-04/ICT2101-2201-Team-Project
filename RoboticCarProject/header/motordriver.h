@@ -8,5 +8,6 @@ void goForward();
 void turnLeft();
 void turnRight();
 void isStop();
+void isReverse();
 
 #endif

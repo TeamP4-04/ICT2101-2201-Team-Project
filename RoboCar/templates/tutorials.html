@@ -1,28 +1,59 @@
- {% extends "layout.html" %}
- {% block content %}
- <div class="row">
-        <div class="col-lg">   
-					<h2>Lesson Plan</a></h2>
-					<div class="col-lg">
-						<article class="media content-section">
-							<div class="media-body">
-								<h2><a class="article-title" href="/tutorial1">Tutorial1</a></h2>
-								<p class="article-content">Lesson 1 - Get used to UI (teach them the UI interfaces, how to navigate, checkpoints …</p>
-							</div>	
-						</article>
-						<article class="media content-section">
-							<div class="media-body">
-								<h2><a class="article-title" href="#">Tutorial2</a></h2>
-								<p class="article-content">Lesson 2 - Showcase all commands (how to construct the codes to move car)</p>
-							</div>	
-						</article>
-						<article class="media content-section">
-							<div class="media-body">
-								<h2><a class="article-title" href="#">Tutorial3</a></h2>
-								<p class="article-content">Lesson 3 - Use Physical Maps (how to place obstacles on map, how to correlate virtual map & physical)</p>
-							</div>	
-						</article>
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+	   <div class="col-lg">   
+			<h2>Lesson Plan</a></h2>
+			<br>
+			<!-- script for popup on page load -->
+			<script type="text/javascript">
+
+				/* --- SKIP TUTORIAL MODAL --- */
+				$(document).ready(function(){
+	
+					if (sessionStorage.getItem('#myModal') !== 'true') {
+						$("#myModal").delay(2000).fadeIn();
+						$('#myModal').modal('show');
+						// JavaScript code that calls popup only 1st visit of every session
+						sessionStorage.setItem('#myModal', 'true');
+					}
+					// $j('#popup-close, #myModal').click(function() // You are clicking the close button
+					// {
+					// 	$j('#myModal').fadeOut(); // Now the pop up is hidden.
+					// });
+				});
+				
+				</script>
+			
+			<!-- Bootstrap Modal Markup -->
+			<div id="myModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Welcome to the RoboCar web portal!</h5>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<p>Do you want to start the Tutorial?</p>
+							<a href="/dashboard"><button id="popup-close" type="button" class="btn btn-light"  style="float: left;">Skip Tutorial</button></a>
+							<a href="/tutorial/1"><button type="button" class="btn btn-primary"  style="float: right;">Start</button></a>
+						</div>
 					</div>
-		</div>
- </div>
- {% endblock content %}
+				</div>
+			</div>
+			<div class="col-lg">
+				<!-- To be replaced by foreach from Database -->
+				{% for row in rows %}
+				<article class="media content-section">
+					<div class="media-body">
+						<h3><a class="article-title" href="/tutorial/{{row['tutorialID']}}">Tutorial {{row["tutorialID"]}} : {{row["tutorialName"]}}</a></h3>
+						<p class="article-content">
+							{{row["tutorialOverview"]}}… 
+						</p>
+						<a href="/tutorial/{{row['tutorialID']}}"><button type="button" class="btn btn-primary"  style="float: right;">Start</button></a>
+					</div>	
+				</article>
+				{% endfor %}
+			</div>
+	   </div>
+</div>
+{% endblock content %}

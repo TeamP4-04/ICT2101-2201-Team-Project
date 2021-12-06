@@ -4,6 +4,7 @@
 #define LINE_H
 
 void initLineSensor(void);
+void trackLine(void);
 
 #endif 
 

@@ -7,7 +7,6 @@ __pycache__/
 .coverage
 
 # database & logs
-*.db
 *.sqlite3
 *.log
 
@@ -30,4 +29,8 @@ package-lock.json
 apps/static/assets/node_modules
 apps/static/assets/yarn.lock
 apps/static/assets/.temp
+
+
+.DS_Store
+*.pyc
 

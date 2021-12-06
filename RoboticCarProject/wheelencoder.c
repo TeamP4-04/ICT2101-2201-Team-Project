@@ -1,4 +1,9 @@
 #include "header/wheelencode.h"
+#include "header/UARTusb.h"
+#include "header/ultrasonic.h"
+#include "header/main.h"
+volatile char leftval[10];
+char myArr[10];
 
 // Initialize Wheel Encoder
 void initWheelEncoder(void)
@@ -40,7 +45,7 @@ void initWheelEncoder(void)
     Interrupt_enableInterrupt(INT_TA2_0);
     Timer_A_clearTimer(TIMER_A2_BASE);
 
-    printf("Wheel Encoder Initialised");
+    printf("Wheel Encoder Initialised\n");
 
 }
 
@@ -65,12 +70,21 @@ void TA2_0_IRQHandler(void)
         float right_rotation_per_min = right_notch_per_min / FULL_ROTATE;
         float right_speed = (right_rotation_per_min * WHEEL_DIA) / 100;
 
-        printf("LEFT WHEEL RPM   : %.1f RPM \n", left_rotation_per_min);
-        printf("LEFT WHEEL SPEED : %.1f m/Min \n", left_speed);
+        /*printing values of the wheel encoders*/
+//        printf("LEFT WHEEL RPM   : %.1f RPM \n", left_rotation_per_min);
+        //printf("LEFT WHEEL SPEED : %.1f m/Min \n", left_speed);
 
-        printf("RIGHT WHEEL RPM   : %.1f RPM \n", right_rotation_per_min);
-        printf("RIGHT WHEEL SPEED : %.1f m/Min \n", right_speed);
+        //printf("RIGHT WHEEL RPM   : %.1f RPM \n", right_rotation_per_min);
+        //printf("RIGHT WHEEL SPEED : %.1f m/Min \n", right_speed);
         
+        //sending the data to the web portal
+//        sprintf(leftval, "%.1f", left_rotation_per_min);
+//        sendBytes(leftval);
+
+        /*sending updates to web portal based on movement*/
+        sprintf(myArr, "%.1f", object_distance);
+        sendBytes(myArr);
+
         left_notch_counter = 0;
         right_notch_counter = 0;
 

@@ -1,27 +1,32 @@
  {% extends "layout.html" %}
  {% block content %}
+	{% if validate == 1%}
+        <script> alert("Invalid Settings!") </script>
+    {% elif validate == 2%}
+		<script> alert("Lower your speed!") </script>	
+	{% elif validate == 3%}
+		<script> alert("Settings Saved!") </script>	
+	{% endif %}
 	<div class="form-wrapper">
-      <h2 class="title">Contact</h2>
-
-      <form method="POST" action="{{ url_for('contact') }}">
-
-          <fieldset class="form-field">
-              {{ form.MaximumSpeed.label }}
-              {{ form.MaximumSpeed(size=20) }}
-          </fieldset>
-
-          <fieldset class="form-field">
-              {{ form.RotationSpeed.label }}
-              {{ form.RotationSpeed }}
-          </fieldset>
-
-          <fieldset class="form-field">
-              {{ form.ObstacleDistance.label }}
-              {{ form.ObstacleDistance }}
-          </fieldset>
-
-          {{ form.submit }}
-
+      <h2 class="title">Car Configuration</h2>
+		
+      <form method="POST" action="{{ url_for('configuration') }}">
+		<div class="form-group">
+			<label>Maximum Speed (cm/s)</label>
+			<input class="form-control" type="number" name="max">
+		</div>
+		
+		<div class="form-group">
+			<label>Rotation Speed (cm/s)</label>
+			<input class="form-control" type="number" name="rot">
+		</div>
+		
+		<div class="form-group">
+			<label>Obstacle Distance (cm)</label>
+			<input class="form-control" type="number" name="obs">
+		</div>
+		
+		<button type="submit" class="btn btn-primary">Configure</button>
       </form>
     </div>
  {% endblock content %}

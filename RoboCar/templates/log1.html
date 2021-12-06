@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<body>
+  {% for row in rows %}
+  <h1>
+    Log {{row["logID"]}}
+  </h1>
+  <br>
+  <table class="table table-borderless">
+    <tbody>
+      <tr class="d-flex">
+        <th class="col-4"> Stage ID: </th>
+        <td class="col-2">{{row["stageID"]}}</td>
+      </tr>
+      <tr class="d-flex">
+        <th class="col-4"> Commands: </th>
+        <td class="col-2">{{row["commands"]}}</td>
+      </tr>
+      <tr class="d-flex">
+        <th class="col-4"> Distance Travelled: </th>
+        <td class="col-2" id="distanceTravelled">{{row["distance_travelled"]}}</td>
+        <td class="col-6"><strong>m</strong></td>
+      </tr>
+      <tr class="d-flex">
+        <th class="col-4"> Rotation: </th>
+        <td class="col-2" id="rotation">{{row["rotation"]}}</td>
+        <td class="col-6"><strong>degree</strong></td>
+      </tr>
+      <tr class="d-flex">
+        <th class="col-4"> Obstacles Distance: </th>
+        <td class="col-2" id ="obstacleDistance">{{row["obstacle_distance"]}}</td>
+        <td class="col-6"><strong>cm</strong></td>
+      </tr>
+      <tr class="d-flex">
+        <th class="col-4"> Time Spent: </th>
+        <td class="col-2">{{row["time_spent"]}}</td>
+        <td class="col-6"><strong>sec</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  {% endfor %}
+
+  <a href="/logs" class="back">Back to logs</a>
+  <!-- <a href = "/dashboard" class = "resume">Resume Game</a> -->
+  <button onclick="myFunction()" class="resume">Resume Game</button>
+  <script>
+    function myFunction() {
+        var distanceTravelled = $("#distanceTravelled").text();
+        var rotation = $("#rotation").text();
+        var obstacleDistance = $("#obstacleDistance").text();
+
+        document.location.href = "/dashboard?distance_travelled=" + distanceTravelled + "&rotation=" + rotation + "&obstacle_distance=" + obstacleDistance;
+        alert("Game Loaded!")
+  }
+  </script>
+</body>
+{% endblock content %}
