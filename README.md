@@ -104,9 +104,9 @@ You can create a pull request in Github to merge your branch to master branch
 ![image](https://user-images.githubusercontent.com/71871190/144734786-3b748a4b-1544-43e6-b8b9-58ec4a2b57c0.png)  
 
 ### Embedded Video 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/3BZyPw8U0CA/0.jpg)](http://www.youtube.com/watch?v=3BZyPw8U0CA "UAT video")
+[![UAT Video](http://img.youtube.com/vi/3BZyPw8U0CA/0.jpg)](http://www.youtube.com/watch?v=3BZyPw8U0CA "UAT video") 
 
-https://www.youtube.com/watch?v=3BZyPw8U0CA
+Alterrnatively, you can click on this link to watch the video https://www.youtube.com/watch?v=3BZyPw8U0CA
 
 
 ## Whitebox Testing
