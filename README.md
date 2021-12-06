@@ -143,3 +143,6 @@ They reside in the ```RoboCar folder```  of the repo.
 ### Instructions on how to run the Test Suite
 
     Embedded Video (1min)
+    
+## Reflections  
+Please go to the ```M3 Individual Reflection Folder``` to access our individual reflections.
